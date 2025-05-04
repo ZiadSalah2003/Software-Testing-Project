@@ -11,6 +11,7 @@
             <class name="Tests.CharValidationTest"/>
             <class name="Tests.NoteTakerTest"/>
             <class name="Tests.NavigationLinksTest"/>
+            <class name="Tests.CanvasDrawingTest"/>
         </classes>
     </test>
 </suite>

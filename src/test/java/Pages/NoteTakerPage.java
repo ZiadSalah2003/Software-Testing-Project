@@ -3,7 +3,11 @@ package Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.JavascriptExecutor; // Added import for JavascriptExecutor
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 import java.util.List;
 
 public class NoteTakerPage {
@@ -13,6 +17,12 @@ public class NoteTakerPage {
     private By noteField = By.id("note");
     private By addButton = By.id("add");
     private By notes = By.cssSelector(".note");
+    
+    // New elements for the updated Simple Note Taker
+    private By noteTitleInput = By.id("note-title-input");
+    private By noteDetailsInput = By.id("note-details-input");
+    private By addNoteButton = By.id("add-note"); 
+    private By deleteNoteButtons = By.className("delete-note-in-list");
 
     public NoteTakerPage(WebDriver driver) {
         this.driver = driver;
@@ -48,6 +58,71 @@ public class NoteTakerPage {
             }
         }
         return false;
+    }
+    
+    /**
+     * Adds a note with title and details, then deletes it after waiting
+     * @param noteTitle The title of the note
+     * @param noteDetails The details/content of the note
+     */
+    public void addAndDeleteNote(String noteTitle, String noteDetails) {
+        System.out.println("Starting to add a note...");
+        
+        // Enter title
+        System.out.println("Entering note title: " + noteTitle);
+        WebElement titleInput = driver.findElement(noteTitleInput);
+        titleInput.clear();
+        titleInput.sendKeys(noteTitle);
+        
+        // Enter note details
+        System.out.println("Entering note details: " + noteDetails);
+        WebElement detailsInput = driver.findElement(noteDetailsInput);
+        detailsInput.clear();
+        detailsInput.sendKeys(noteDetails);
+        
+        // Click add note button
+        System.out.println("Clicking 'Add' button");
+        driver.findElement(addNoteButton).click();
+        
+        // Wait to ensure note is added (reduced from 1000ms to 500ms)
+        sleep(500);
+        
+        // Wait for 2 seconds as requested before deleting
+        System.out.println("Waiting for 2 seconds before deleting note");
+        sleep(2000);
+        
+        // Click delete button (first one in the list)
+        System.out.println("Looking for delete buttons");
+        List<WebElement> deleteButtons = driver.findElements(deleteNoteButtons);
+        if (!deleteButtons.isEmpty()) {
+            System.out.println("Found " + deleteButtons.size() + " delete buttons. Clicking the first one.");
+            deleteButtons.get(0).click();
+            
+            // Handle the alert that appears
+            try {
+                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+                Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+                System.out.println("Alert detected: " + alert.getText());
+                alert.accept();
+                System.out.println("Alert accepted");
+            } catch (Exception e) {
+                System.out.println("No alert was present: " + e.getMessage());
+            }
+        } else {
+            System.out.println("ERROR: No delete buttons found");
+        }
+    }
+    
+    /**
+     * Sleep helper method for waiting
+     * @param milliseconds Time to sleep in milliseconds
+     */
+    private void sleep(int milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clearAllNotes() {

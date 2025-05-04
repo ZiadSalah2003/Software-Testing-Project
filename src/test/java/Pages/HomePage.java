@@ -3,6 +3,7 @@ package Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import java.util.List;
 
 public class HomePage {
     private WebDriver driver;
@@ -15,10 +16,15 @@ public class HomePage {
     private By buttonCalculatorLink = By.id("buttoncalculator");
     private By countdownLink = By.linkText("JavaScript Countdown Test Page");
     private By searchLink = By.linkText("Search");
+    // Updated to use linkText instead of ID
     private By charValidationLink = By.linkText("7 Char Val Validation");
     private By noteTakerLink = By.linkText("Simple Note Taker");
     private By learnMoreLink = By.linkText("Learn More");
     private By morePracticeSitesLink = By.linkText("More Practice Sites");
+    // Adding Canvas Scribble Test page link
+    private By canvasScribbleLink = By.id("scribbletest");
+    // Adding Canvas Drawing with JavaScript Example link
+    private By canvasDrawingLink = By.id("canvastest");
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -82,8 +88,34 @@ public class HomePage {
     }
 
     public CharValidationPage openCharValidationPage() {
-        driver.findElement(charValidationLink).click();
-        sleep(1000);
+        System.out.println("Attempting to click on 7 Char Val Validation link");
+        try {
+            // Try the primary selector
+            driver.findElement(charValidationLink).click();
+        } catch (Exception e) {
+            System.out.println("Could not find link by text, trying alternative selectors");
+            try {
+                // Try finding by partial link text
+                driver.findElement(By.partialLinkText("7 Char")).click();
+            } catch (Exception e2) {
+                try {
+                    // Try finding by href containing the URL
+                    driver.findElement(By.cssSelector("a[href*='7charval']")).click();
+                } catch (Exception e3) {
+                    System.out.println("All direct attempts failed. Listing all links on page:");
+                    // List all links on the page for debugging
+                    List<WebElement> allLinks = driver.findElements(By.tagName("a"));
+                    for (WebElement link : allLinks) {
+                        System.out.println("Link text: '" + link.getText() + "', href: '" + 
+                                          link.getAttribute("href") + "', id: '" + 
+                                          link.getAttribute("id") + "'");
+                    }
+                    // Last resort - try to find by ID (old approach)
+                    driver.findElement(By.id("7charval")).click();
+                }
+            }
+        }
+        sleep(2000); // Increased sleep time to make sure page loads
         return new CharValidationPage(driver);
     }
 
@@ -101,5 +133,17 @@ public class HomePage {
     public void clickMorePracticeSites() {
         driver.findElement(morePracticeSitesLink).click();
         sleep(1000);
+    }
+
+    public ScribblePage openCanvasScribblePage() {
+        driver.findElement(canvasScribbleLink).click();
+        sleep(1000);
+        return new ScribblePage(driver);
+    }
+    
+    public CanvasDrawingPage openCanvasDrawingPage() {
+        driver.findElement(canvasDrawingLink).click();
+        sleep(1000);
+        return new CanvasDrawingPage(driver);
     }
 }
