@@ -32,10 +32,10 @@ public class HomePage {
         }
     }
 
-    public ClientServerFormPage openClientServerFormPage() {
+    public ClientServerFormInputValidationPage openClientServerFormPage() {
         driver.findElement(clientServerFormLink).click();
         sleep(1000);
-        return new ClientServerFormPage(driver);
+        return new ClientServerFormInputValidationPage(driver);
     }
 
     public CalculatorPage openCalculatorPage() {
