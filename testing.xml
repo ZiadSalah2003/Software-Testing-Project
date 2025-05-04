@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Tests">
+    <test verbose="2" preserve-order="true" name="Web_Testing_Project">
+        <classes>
+            <class name="Tests.ClientServerFormTest"/>
+            <class name="Tests.CalculatorTest"/>
+            <class name="Tests.ButtonCalculatorTest"/>
+            <class name="Tests.CountdownTest"/>
+            <class name="Tests.SearchTest"/>
+            <class name="Tests.CharValidationTest"/>
+            <class name="Tests.NoteTakerTest"/>
+            <class name="Tests.NavigationLinksTest"/>
+        </classes>
+    </test>
+</suite>
