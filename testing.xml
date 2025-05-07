@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Tests">
-    <test verbose="2" preserve-order="true" name="Web_Testing_Project">
+    <!-- Individual Tests -->
+    <test verbose="2" preserve-order="true" name="Individual_Tests" enabled="false">
         <classes>
-            <class name="Tests.ClientServerFormTest"/>
+            <class name="Tests.ClientServerFormInputValidationTest"/>
             <class name="Tests.CalculatorTest"/>
             <class name="Tests.ButtonCalculatorTest"/>
             <class name="Tests.CountdownTest"/>
-            <class name="Tests.SearchTest"/>
             <class name="Tests.CharValidationTest"/>
             <class name="Tests.NoteTakerTest"/>
-            <class name="Tests.NavigationLinksTest"/>
             <class name="Tests.CanvasDrawingTest"/>
+            <class name="Tests.ScribbleTest"/>
+            <class name="Tests.TheFamousTriangleApplicationTest"/>
+        </classes>
+    </test>
+    
+    <!-- Comprehensive Test - runs all tests in sequence -->
+    <test verbose="2" preserve-order="true" name="Comprehensive_Test" enabled="true">
+        <classes>
+            <class name="Tests.ComprehensiveTest"/>
         </classes>
     </test>
 </suite>

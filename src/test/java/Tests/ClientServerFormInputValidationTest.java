@@ -21,14 +21,14 @@ public class ClientServerFormInputValidationTest extends TestBase {
         formPage.fillOutForm("Ahmed", "Mustafa Abd Elaty", "21", "Egypt", "This is a test note.");
         formPage.submitForm();
 
-        // Wait for the redirection page to load and confirm that it has fully loaded
-        formPage.waitForPageToLoad(2); // Adjust the timeout as needed
+        // Wait for the redirection page to load
+        formPage.waitForPageToLoad(2); // Using the updated method that doesn't expect a confirmation element
 
-        // After form submission, confirm if the confirmation page is visible
+        // After form submission, check the page source for success message
         String confirmationMessage = driver.getPageSource();
         Assert.assertTrue(confirmationMessage.contains("Form submitted successfully"), "Expected form submission success message.");
 
-        // Navigate back to the form to test another case
+        // Navigate back to the form using two-step navigation
         formPage.navigateBackToForm();
 
         // Add a small delay before the next test case
@@ -40,15 +40,15 @@ public class ClientServerFormInputValidationTest extends TestBase {
         formPage.fillOutForm("", "Mustafa Abd Elaty", "21", "Egypt", "This is a test note.");
         formPage.submitForm();
 
-        // Wait for the redirection page to load and confirm that it has fully loaded
-        formPage.waitForPageToLoad(2); // Adjust the timeout as needed
+        // Wait for the redirection page to load
+        formPage.waitForPageToLoad(2);
 
-        // After form submission, confirm if the confirmation page is visible
+        // After form submission, check the page source
         String confirmationMessage = driver.getPageSource();
         Assert.assertTrue(confirmationMessage.contains("Form submitted successfully"), "Expected form submission success message.");
 
-        // Navigate back to the form to test another case
-
+        // Navigate back to the form page
+        formPage.navigateBackToForm();
 
         // Add a small delay before the next test case
         sleep(2000);
@@ -60,15 +60,15 @@ public class ClientServerFormInputValidationTest extends TestBase {
         formPage.fillOutForm("Ahmed", "Mustafa", "21", "Egypt", "This is a test note.");
         formPage.submitForm();
 
-        // Wait for the redirection page to load and confirm that it has fully loaded
-        formPage.waitForPageToLoad(2); // Adjust the timeout as needed
+        // Wait for the redirection page to load
+        formPage.waitForPageToLoad(2);
 
-        // After form submission, confirm if the confirmation page is visible
+        // After form submission, check the page source
         String confirmationMessage = driver.getPageSource();
         Assert.assertTrue(confirmationMessage.contains("Form submitted successfully"), "Expected form submission success message.");
 
-        // Navigate back to the form to test another case
-
+        // Navigate back to the form page
+        formPage.navigateBackToForm();
 
         // Add a small delay before the next test case
         sleep(2000);
@@ -80,15 +80,15 @@ public class ClientServerFormInputValidationTest extends TestBase {
         formPage.fillOutForm("Ahmed", "Mustafa Abd Elaty", "90", "Egypt", "This is a test note.");
         formPage.submitForm();
 
-        // Wait for the redirection page to load and confirm that it has fully loaded
-        formPage.waitForPageToLoad(2); // Adjust the timeout as needed
+        // Wait for the redirection page to load
+        formPage.waitForPageToLoad(2);
 
-        // After form submission, confirm if the confirmation page is visible
+        // After form submission, check the page source
         String confirmationMessage = driver.getPageSource();
         Assert.assertTrue(confirmationMessage.contains("Form submitted successfully"), "Expected form submission success message.");
 
-        // Navigate back to the form to test another case
-
+        // Navigate back to the form page
+        formPage.navigateBackToForm();
 
         // Add a small delay before the next test case
         sleep(2000);

@@ -10,20 +10,16 @@ public class HomePage {
 
     // Main page elements
     private By clientServerFormLink = By.linkText("HTML Form Example");
-    // Updated calculator link to use linkText instead of id
     private By calculatorLink = By.linkText("Calculator");
-    // Updated Button Calculator link to use the correct id
     private By buttonCalculatorLink = By.id("buttoncalculator");
     private By countdownLink = By.linkText("JavaScript Countdown Test Page");
+    private By countdownLinkById = By.id("countdowntest"); // Added new countdown link by ID
     private By searchLink = By.linkText("Search");
-    // Updated to use linkText instead of ID
     private By charValidationLink = By.linkText("7 Char Val Validation");
     private By noteTakerLink = By.linkText("Simple Note Taker");
     private By learnMoreLink = By.linkText("Learn More");
     private By morePracticeSitesLink = By.linkText("More Practice Sites");
-    // Adding Canvas Scribble Test page link
     private By canvasScribbleLink = By.id("scribbletest");
-    // Adding Canvas Drawing with JavaScript Example link
     private By canvasDrawingLink = By.id("canvastest");
 
     public HomePage(WebDriver driver) {
@@ -76,7 +72,13 @@ public class HomePage {
     }
 
     public CountdownPage openCountdownPage() {
-        driver.findElement(countdownLink).click();
+        // Try the ID selector first, then fallback to link text if needed
+        try {
+            driver.findElement(countdownLinkById).click();
+        } catch (Exception e) {
+            System.out.println("Could not find countdown link by ID, trying link text");
+            driver.findElement(countdownLink).click();
+        }
         sleep(1000);
         return new CountdownPage(driver);
     }

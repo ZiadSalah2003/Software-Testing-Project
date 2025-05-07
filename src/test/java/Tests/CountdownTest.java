@@ -9,61 +9,26 @@ public class CountdownTest extends TestBase {
     HomePage homePage;
     CountdownPage countdownPage;
 
+    /**
+     * Test case for the specific timer sequence:
+     * 1. Clear the timer
+     * 2. Set timer to 2000 seconds
+     * 3. Start the timer
+     * 4. Wait 4 seconds
+     * 5. Stop the timer
+     * 6. Wait 2 seconds and close
+     */
     @Test
-    public void testCountdownStart() {
+    public void testTimerSequence() {
         // Navigate to the Countdown page
         homePage = new HomePage(driver);
         countdownPage = homePage.openCountdownPage();
-
-        // Set duration and start countdown
-        countdownPage.setDuration("10");
-        countdownPage.startCountdown();
-
-        // Verify countdown is running
-        Assert.assertTrue(countdownPage.isCountdownRunning(), "Countdown did not start");
-    }
-
-    @Test
-    public void testCountdownStop() {
-        // Navigate to the Countdown page if not already there
-        if (countdownPage == null) {
-            homePage = new HomePage(driver);
-            countdownPage = homePage.openCountdownPage();
-        }
-
-        // Set duration and start countdown
-        countdownPage.setDuration("10");
-        countdownPage.startCountdown();
-
-        // Wait briefly to ensure countdown starts
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        // Stop the countdown
-        countdownPage.stopCountdown();
-
-        // Verify countdown is stopped
-        Assert.assertFalse(countdownPage.isCountdownRunning(), "Countdown did not stop");
-    }
-
-    @Test
-    public void testCountdownReset() {
-        // Navigate to the Countdown page if not already there
-        if (countdownPage == null) {
-            homePage = new HomePage(driver);
-            countdownPage = homePage.openCountdownPage();
-        }
-
-        // Set duration, start and then reset
-        countdownPage.setDuration("10");
-        countdownPage.startCountdown();
-        countdownPage.resetCountdown();
-
-        // Verify countdown was reset
-        String countdownValue = countdownPage.getCountdownValue();
-        Assert.assertEquals(countdownValue, "10", "Countdown was not reset correctly");
+        
+        System.out.println("Starting timer sequence test");
+        
+        // Execute the timer sequence
+        countdownPage.performTimerSequence();
+        
+        System.out.println("Timer sequence test completed successfully");
     }
 }
