@@ -3,7 +3,7 @@ package Tests;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.*;
 import java.time.Duration;
 
@@ -13,34 +13,43 @@ public class TestBase {
     @BeforeTest
     public void openUrl()
     {
-        // Setup WebDriver using WebDriverManager
+        // Setup WebDriver using WebDriverManager with optimized options
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        
+        // Add Chrome options to speed up browser startup
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-extensions");
+        options.addArguments("--disable-infobars");
+        options.addArguments("--disable-notifications");
+        options.addArguments("--disable-popup-blocking");
+        
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         
-        // Add a small pause before navigating to the page
-        sleep(2000);
+        // Reduced pause before navigating to the page
+        sleep(500);
         
         driver.get("https://testpages.eviltester.com/styled/index.html");
         
-        // Increased implicit wait time to 30 seconds and using Duration instead of TimeUnit
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        // Reduced implicit wait time from 30 seconds to 5 seconds
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         
-        // Add additional wait after page load
-        sleep(3000);
+        // Reduced additional wait after page load
+        sleep(1000);
     }
     
     @AfterTest
     public void closeUrl()
     {
-        // Add a pause before closing the browser
-        sleep(2000);
+        // Reduced pause before closing the browser
+        sleep(500);
         driver.quit();
     }
     
-    private void sleep(int milliseconds) {
+    protected void sleep(int milliseconds) {
         try {
-            Thread.sleep(milliseconds);
+            // Cap the sleep time to prevent excessive waits
+            Thread.sleep(Math.min(milliseconds, 1000));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
