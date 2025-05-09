@@ -27,7 +27,7 @@ public class TestBase {
         driver.manage().window().maximize();
         
         // Reduced pause before navigating to the page
-        sleep(500);
+        implicitWait(500);
         
         driver.get("https://testpages.eviltester.com/styled/index.html");
         
@@ -35,23 +35,33 @@ public class TestBase {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         
         // Reduced additional wait after page load
-        sleep(1000);
+        implicitWait(1000);
     }
     
     @AfterTest
     public void closeUrl()
     {
         // Reduced pause before closing the browser
-        sleep(500);
+        implicitWait(500);
         driver.quit();
     }
     
+    /**
+     * Sets implicit wait on the driver.
+     * This replaces the previous sleep method with a more efficient implicit wait.
+     * @param milliseconds Maximum time to wait in milliseconds
+     */
+    protected void implicitWait(int milliseconds) {
+        // Set implicit wait with a reasonable maximum for consistency
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(Math.min(milliseconds, 1000)));
+    }
+    
+    /**
+     * @deprecated Use implicitWait method instead
+     * Kept for backward compatibility with existing code
+     */
+    @Deprecated
     protected void sleep(int milliseconds) {
-        try {
-            // Cap the sleep time to prevent excessive waits
-            Thread.sleep(Math.min(milliseconds, 1000));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        implicitWait(milliseconds);
     }
 }

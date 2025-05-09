@@ -54,16 +54,23 @@ public class SwagLabsPage {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
+      /**
+     * Sets implicit wait on the driver.
+     * This replaces the previous sleep method with a more efficient implicit wait.
+     * @param milliseconds Maximum time to wait in milliseconds
+     */
+    private void implicitWait(int milliseconds) {
+        // Set implicit wait with a maximum of 500ms for consistency with previous implementation
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(Math.min(milliseconds, 500)));
+    }
     
     /**
-     * Helper method to sleep for the specified milliseconds
+     * @deprecated Use implicitWait method instead
+     * Kept for backward compatibility with existing code
      */
+    @Deprecated
     private void sleep(int milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        implicitWait(milliseconds);
     }
     
     /**

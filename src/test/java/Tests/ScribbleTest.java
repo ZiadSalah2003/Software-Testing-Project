@@ -15,11 +15,7 @@ public class ScribbleTest extends TestBase {
         // Complete the canvas drawing task
         scribblePage.completeCanvasTask();
         
-        // Add a brief pause to see the result
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // Add a brief pause to see the result using implicit wait
+        implicitWait(2000);
     }
 }

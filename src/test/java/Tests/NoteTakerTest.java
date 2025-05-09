@@ -90,13 +90,13 @@ public class NoteTakerTest extends TestBase {
     }
     
     /**
-     * Helper method to sleep for the specified milliseconds
+     * @deprecated Use implicitWait method from TestBase instead
+     * Kept for backward compatibility with existing code
      */
-    private void sleep(int milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    @Override
+    @Deprecated
+    protected void sleep(int milliseconds) {
+        // Use the implicitWait method from the parent class
+        super.implicitWait(milliseconds);
     }
 }

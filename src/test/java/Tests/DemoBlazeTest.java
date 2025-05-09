@@ -30,15 +30,14 @@ public class DemoBlazeTest extends TestBase {
     }
     
     /**
-     * Helper method to sleep/wait for specified duration
+     * @deprecated This method is kept for backwards compatibility but uses implicitWait internally
+     * Overrides the base class method to ensure all waits in this test file use implicit wait
      */
     @Override
+    @Deprecated
     protected void sleep(int milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // Use the implicitWait method from the parent class
+        super.implicitWait(milliseconds);
     }
     
     /**

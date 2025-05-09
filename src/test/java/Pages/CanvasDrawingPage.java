@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import java.time.Duration;
 
 public class CanvasDrawingPage {
     private WebDriver driver;
@@ -100,7 +101,7 @@ public class CanvasDrawingPage {
      */
     public void clickClearButton() {
         driver.findElement(clearButton).click();
-        sleep(1000); // Short pause after clearing
+        implicitWait(1); // Short pause after clearing
     }
 
     /**
@@ -126,7 +127,7 @@ public class CanvasDrawingPage {
         selectColor(colorValue);
         selectShape(shapeValue);
         clickShowButton();
-        sleep(1000); // Wait for drawing to complete
+        implicitWait(1); // Wait for drawing to complete
     }
 
     /**
@@ -144,17 +145,13 @@ public class CanvasDrawingPage {
         selectColorByName(colorName);
         selectShapeByName(shapeName);
         clickShowButton();
-        sleep(1000); // Wait for drawing to complete
+        implicitWait(1); // Wait for drawing to complete
     }
 
     /**
-     * Helper method to sleep for the specified milliseconds
+     * Helper method to wait for the specified seconds
      */
-    private void sleep(int milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    private void implicitWait(int seconds) {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(seconds));
     }
 }

@@ -94,11 +94,14 @@ public class ClientServerFormInputValidationTest extends TestBase {
         sleep(2000);
     }
 
-    private void sleep(int milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    /**
+     * @deprecated Use implicitWait method from TestBase instead
+     * Kept for backward compatibility with existing code
+     */
+    @Override
+    @Deprecated
+    protected void sleep(int milliseconds) {
+        // Use the implicitWait method from the parent class
+        super.implicitWait(milliseconds);
     }
 }

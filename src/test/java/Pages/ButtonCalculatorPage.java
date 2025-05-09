@@ -2,6 +2,7 @@ package Pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import java.time.Duration;
 
 public class ButtonCalculatorPage {
     private WebDriver driver;
@@ -30,12 +31,22 @@ public class ButtonCalculatorPage {
         this.driver = driver;
     }
 
+    /**
+     * Sets implicit wait on the driver.
+     * This replaces the previous sleep method with a more efficient implicit wait.
+     * @param milliseconds Maximum time to wait in milliseconds
+     */
+    private void implicitWait(int milliseconds) {
+        // Set implicit wait with a maximum of 200ms for consistency with previous implementation
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(Math.min(milliseconds, 200)));
+    }
+
+    /**
+     * @deprecated Use implicitWait method instead
+     */
+    @Deprecated
     private void sleep(int milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        implicitWait(milliseconds);
     }
 
     public void clickButton(String button) {
@@ -59,7 +70,7 @@ public class ButtonCalculatorPage {
             case "AC": driver.findElement(buttonallClear).click(); break;
         }
         // Add delay after each button click
-        sleep(1000);
+        implicitWait(1000);
     }
 
     public void enterNumber(int number) {
@@ -71,22 +82,22 @@ public class ButtonCalculatorPage {
 
     public void performCalculation(int num1, String operator, int num2) {
         enterNumber(num1);
-        sleep(1000);
+        implicitWait(1000);
         clickButton(operator);
-        sleep(1000);
+        implicitWait(1000);
         enterNumber(num2);
-        sleep(1000);
+        implicitWait(1000);
         clickButton("=");
-        sleep(1000);
+        implicitWait(1000);
     }
 
     public void clearDisplay() {
         clickButton("AC");
-        sleep(1000);
+        implicitWait(1000);
     }
 
     public String getDisplayValue() {
-        sleep(1000);
+        implicitWait(1000);
         return driver.findElement(displayField).getText();
     }
     
@@ -97,23 +108,23 @@ public class ButtonCalculatorPage {
     public void calculateTwoPlusFive() {
         // Clear the display first
         clearDisplay();
-        sleep(1000);
+        implicitWait(1000);
         
         // Click button 2
         clickButton("2");
-        sleep(1000);
+        implicitWait(1000);
         
         // Click the plus button
         clickButton("+");
-        sleep(1000);
+        implicitWait(1000);
         
         // Click button 5
         clickButton("5");
-        sleep(1000);
+        implicitWait(1000);
         
         // Click equals to get the result
         clickButton("=");
-        sleep(1000);
+        implicitWait(1000);
         
         // The result should be "7" in the display
     }
@@ -125,27 +136,27 @@ public class ButtonCalculatorPage {
     public void calculateTwentyFiveMinusSixteen() {
         // Clear the display first
         clearDisplay();
-        sleep(1000);
+        implicitWait(1000);
         
         // Enter number 25
         clickButton("2");
-        sleep(500);
+        implicitWait(500);
         clickButton("5");
-        sleep(1000);
+        implicitWait(1000);
         
         // Click the minus button
         clickButton("-");
-        sleep(1000);
+        implicitWait(1000);
         
         // Enter number 16
         clickButton("1");
-        sleep(500);
+        implicitWait(500);
         clickButton("6");
-        sleep(1000);
+        implicitWait(1000);
         
         // Click equals to get the result
         clickButton("=");
-        sleep(1000);
+        implicitWait(1000);
         
         // The result should be "9" in the display
     }

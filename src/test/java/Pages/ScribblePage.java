@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.JavascriptExecutor;
+import java.time.Duration;
 
 public class ScribblePage {
     private WebDriver driver;
@@ -19,12 +20,23 @@ public class ScribblePage {
         this.driver = driver;
     }
     
+    /**
+     * Sets implicit wait on the driver.
+     * This replaces the previous sleep method with a more efficient implicit wait.
+     * @param milliseconds Maximum time to wait in milliseconds
+     */
+    private void implicitWait(int milliseconds) {
+        // Set implicit wait with a maximum of 200ms for consistency
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(Math.min(milliseconds, 200)));
+    }
+    
+    /**
+     * @deprecated Use implicitWait method instead
+     * Kept for backward compatibility with existing code
+     */
+    @Deprecated
     private void sleep(int milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        implicitWait(milliseconds);
     }
     
     /**

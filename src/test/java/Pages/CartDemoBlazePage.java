@@ -40,16 +40,21 @@ public class CartDemoBlazePage {
     }
 
     /**
-     * Helper method to sleep for the specified milliseconds
-     * All sleep durations have been optimized for faster execution
+     * Sets implicit wait on the driver.
+     * This replaces the previous sleep method with a more efficient implicit wait.
+     * @param milliseconds Maximum time to wait in milliseconds
      */
+    private void implicitWait(int milliseconds) {
+        // Set implicit wait with a maximum of 200ms for consistency with previous implementation
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(Math.min(milliseconds, 200)));
+    }
+    
+    /**
+     * @deprecated Use implicitWait method instead
+     */
+    @Deprecated
     private void sleep(int milliseconds) {
-        try {
-            // Use even smaller sleep times to speed up tests
-            Thread.sleep(Math.min(milliseconds, 200));  // Limit sleep time to max 200ms
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        implicitWait(milliseconds);
     }
 
     /**
@@ -57,7 +62,7 @@ public class CartDemoBlazePage {
      */
     public void navigateToHome() {
         wait.until(ExpectedConditions.elementToBeClickable(homeLink)).click();
-        sleep(500);
+        implicitWait(500);
     }
 
     /**
@@ -65,7 +70,7 @@ public class CartDemoBlazePage {
      */
     public void navigateToPhones() {
         wait.until(ExpectedConditions.elementToBeClickable(phonesCategory)).click();
-        sleep(500);
+        implicitWait(500);
     }
 
     /**
@@ -73,7 +78,7 @@ public class CartDemoBlazePage {
      */
     public void navigateToLaptops() {
         wait.until(ExpectedConditions.elementToBeClickable(laptopsCategory)).click();
-        sleep(500);
+        implicitWait(500);
     }
 
     /**
@@ -81,7 +86,7 @@ public class CartDemoBlazePage {
      */
     public void navigateToMonitors() {
         wait.until(ExpectedConditions.elementToBeClickable(monitorsCategory)).click();
-        sleep(500);
+        implicitWait(500);
     }
 
     /**
@@ -93,7 +98,7 @@ public class CartDemoBlazePage {
             for (WebElement product : products) {
                 if (product.getText().toLowerCase().contains(productName.toLowerCase())) {
                     product.click();
-                    sleep(500);
+                    implicitWait(500);
                     return;
                 }
             }
@@ -109,7 +114,7 @@ public class CartDemoBlazePage {
     public void addToCart() {
         try {
             wait.until(ExpectedConditions.elementToBeClickable(addToCartButton)).click();
-            sleep(500);
+            implicitWait(500);
             // Handle alert
             handleAlert();
         } catch (Exception e) {
@@ -123,7 +128,7 @@ public class CartDemoBlazePage {
     public void navigateToCart() {
         try {
             wait.until(ExpectedConditions.elementToBeClickable(cartLink)).click();
-            sleep(500);
+            implicitWait(500);
         } catch (Exception e) {
             System.out.println("Error navigating to cart: " + e.getMessage());
             try {
@@ -141,7 +146,7 @@ public class CartDemoBlazePage {
     public void clickPlaceOrder() {
         try {
             wait.until(ExpectedConditions.elementToBeClickable(placeOrderButton)).click();
-            sleep(500);
+            implicitWait(500);
         } catch (Exception e) {
             System.out.println("Error clicking Place Order button: " + e.getMessage());
         }
@@ -192,7 +197,7 @@ public class CartDemoBlazePage {
     public void clickPurchase() {
         try {
             wait.until(ExpectedConditions.elementToBeClickable(purchaseButton)).click();
-            sleep(500);
+            implicitWait(500);
         } catch (Exception e) {
             System.out.println("Error clicking Purchase button: " + e.getMessage());
         }
@@ -226,15 +231,13 @@ public class CartDemoBlazePage {
     public void confirmPurchase() {
         try {
             wait.until(ExpectedConditions.elementToBeClickable(orderConfirmButton)).click();
-            sleep(500);
+            implicitWait(500);
         } catch (Exception e) {
             System.out.println("Error confirming purchase: " + e.getMessage());
         }
     }
 
     /**
-     * Handle alert with faster response time - optimized version
-     */    /**
      * Handle alert with faster response time - optimized version
      * Returns the alert text if present, or a message indicating no alert was found
      */

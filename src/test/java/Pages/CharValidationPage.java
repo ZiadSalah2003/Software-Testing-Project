@@ -2,6 +2,7 @@ package Pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import java.time.Duration;
 
 public class CharValidationPage {
     private WebDriver driver;
@@ -25,7 +26,7 @@ public class CharValidationPage {
         System.out.println("Clicking the Check Input button");
         driver.findElement(checkButton).click();
         // Small wait to allow validation to complete
-        sleep(500);
+        implicitWait(500);
     }
 
     public String getValidationMessage() {
@@ -47,11 +48,21 @@ public class CharValidationPage {
         clickCheckButton();
     }
     
+    /**
+     * Sets implicit wait on the driver.
+     * This replaces the previous sleep method with a more efficient implicit wait.
+     * @param milliseconds Maximum time to wait in milliseconds
+     */
+    private void implicitWait(int milliseconds) {
+        // Set implicit wait with a maximum of 200ms for consistency with previous implementation
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(Math.min(milliseconds, 200)));
+    }
+    
+    /**
+     * @deprecated Use implicitWait method instead
+     */
+    @Deprecated
     private void sleep(int milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        implicitWait(milliseconds);
     }
 }

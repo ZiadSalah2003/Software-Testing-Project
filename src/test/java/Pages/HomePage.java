@@ -4,6 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import java.time.Duration;
 import java.util.List;
 import java.util.Set;
 
@@ -34,34 +37,39 @@ public class HomePage {
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
-    
-    private void sleep(int milliseconds) {
-        try {
-            // Reduce sleep time to make navigation faster
-            Thread.sleep(Math.min(milliseconds, 200));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+      /**
+     * Sets implicit wait on the driver.
+     * This replaces the previous sleep method with a more efficient implicit wait.
+     * @param milliseconds Maximum time to wait in milliseconds
+     */
+    private void implicitWait(int milliseconds) {
+        // Set implicit wait with a maximum of 200ms for consistency with previous implementation
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(Math.min(milliseconds, 200)));
     }
-
-    public ClientServerFormInputValidationPage openClientServerFormPage() {
+    
+    /**
+     * Creates an explicit wait for specific conditions
+     * @param milliseconds Maximum time to wait in milliseconds
+     * @return WebDriverWait object
+     */
+    private WebDriverWait getWait(int milliseconds) {
+        return new WebDriverWait(driver, Duration.ofMillis(Math.min(milliseconds, 200)));
+    }    public ClientServerFormInputValidationPage openClientServerFormPage() {
         driver.findElement(clientServerFormLink).click();
-        sleep(200); // Reduced from 1000ms
+        implicitWait(200); // Replaced sleep with implicitWait
         return new ClientServerFormInputValidationPage(driver);
     }
 
     public CalculatorPage openCalculatorPage() {
         driver.findElement(calculatorLink).click();
-        sleep(200); // Reduced from 1000ms
+        implicitWait(200); // Replaced sleep with implicitWait
         return new CalculatorPage(driver);
-    }
-
-    public ButtonCalculatorPage openButtonCalculatorPage() {
+    }    public ButtonCalculatorPage openButtonCalculatorPage() {
         // Print available links on page for debugging
         System.out.println("Looking for Button Calculator link...");
         try {
             driver.findElement(buttonCalculatorLink).click();
-            sleep(200); // Reduced from 1000ms
+            implicitWait(200); // Replaced sleep with implicitWait
             return new ButtonCalculatorPage(driver);
         } catch (Exception e) {
             // Try alternative selectors
@@ -76,7 +84,7 @@ public class HomePage {
                     e3.printStackTrace();
                 }
             }
-            sleep(200); // Reduced from 1000ms
+            implicitWait(200); // Replaced sleep with implicitWait
             return new ButtonCalculatorPage(driver);
         }
     }
@@ -89,13 +97,11 @@ public class HomePage {
             System.out.println("Could not find countdown link by ID, trying link text");
             driver.findElement(countdownLink).click();
         }
-        sleep(200); // Reduced from 1000ms
+        implicitWait(200); // Replaced sleep with implicitWait
         return new CountdownPage(driver);
-    }
-
-    public SearchPage openSearchPage() {
+    }    public SearchPage openSearchPage() {
         driver.findElement(searchLink).click();
-        sleep(200); // Reduced from 1000ms
+        implicitWait(200); // Replaced sleep with implicitWait
         return new SearchPage(driver);
     }
 
@@ -127,39 +133,37 @@ public class HomePage {
                 }
             }
         }
-        sleep(500); // Reduced from 2000ms but kept slightly longer for this complex page
+        // Using slightly longer wait for this complex page
+        implicitWait(500); // Replaced sleep with implicitWait (kept longer wait time)
         return new CharValidationPage(driver);
-    }
-
-    public NoteTakerPage openNoteTakerPage() {
+    }    public NoteTakerPage openNoteTakerPage() {
         driver.findElement(noteTakerLink).click();
-        sleep(200); // Reduced from 1000ms
+        implicitWait(200); // Replaced sleep with implicitWait
         return new NoteTakerPage(driver);
     }
 
     public void clickLearnMore() {
         driver.findElement(learnMoreLink).click();
-        sleep(200); // Reduced from 1000ms
+        implicitWait(200); // Replaced sleep with implicitWait
     }
 
     public void clickMorePracticeSites() {
         driver.findElement(morePracticeSitesLink).click();
-        sleep(200); // Reduced from 1000ms
+        implicitWait(200); // Replaced sleep with implicitWait
     }
 
     public ScribblePage openCanvasScribblePage() {
         driver.findElement(canvasScribbleLink).click();
-        sleep(200); // Reduced from 1000ms
+        implicitWait(200); // Replaced sleep with implicitWait
         return new ScribblePage(driver);
     }
     
     public CanvasDrawingPage openCanvasDrawingPage() {
         driver.findElement(canvasDrawingLink).click();
-        sleep(200); // Reduced from 1000ms
+        implicitWait(200); // Replaced sleep with implicitWait
         return new CanvasDrawingPage(driver);
     }
-    
-    /**
+      /**
      * Navigate to DemoBlaze through direct URL for faster testing
      * This bypasses the Related Sites flow for efficiency
      * @return DemoBlazePage object for interaction with the DemoBlaze site
@@ -167,7 +171,8 @@ public class HomePage {
     public DemoBlazePage navigateToDemoBlaze() {
         System.out.println("Direct navigation to DemoBlaze for faster testing");
         driver.get("https://www.demoblaze.com/index.html");
-        sleep(500); // Reduced wait time for page load
+        // Use explicit wait to wait for page to load
+        getWait(500).until(ExpectedConditions.titleContains("STORE"));
         return new DemoBlazePage(driver);
     }
 
@@ -217,11 +222,11 @@ public class HomePage {
                         }
                     }
                 }
-                
-                if (relatedSitesElement != null) {
+                  if (relatedSitesElement != null) {
                     System.out.println("Found Related Sites link, clicking it");
                     relatedSitesElement.click();
-                    sleep(2000);
+                    // Use explicit wait to wait for page to load
+                    getWait(2000).until(ExpectedConditions.urlContains("Others"));
                     
                     // Now on Related Sites page, look for Product Store link
                     WebElement productStoreElement = null;
@@ -257,11 +262,10 @@ public class HomePage {
                             }
                         }
                     }
-                    
-                    if (productStoreElement != null) {
+                      if (productStoreElement != null) {
                         System.out.println("Found Product Store link, clicking it");
                         productStoreElement.click();
-                        sleep(2000);
+                        implicitWait(2000);
                         
                         // Store current window handle
                         String currentHandle = driver.getWindowHandle();
@@ -277,35 +281,32 @@ public class HomePage {
                                 }
                             }
                         }
-                        
-                        // Allow time for page to load
-                        sleep(3000);
+                          // Wait for page to load with explicit wait
+                        getWait(3000).until(ExpectedConditions.titleContains("STORE"));
                         
                         System.out.println("Successfully navigated to DemoBlaze via Related Sites");
                     } else {
                         System.out.println("Could not find Product Store link, falling back to direct navigation");
                         driver.get("https://www.demoblaze.com/index.html");
-                        sleep(3000);
-                    }
-                } else {
+                        getWait(3000).until(ExpectedConditions.titleContains("STORE"));
+                    }                } else {
                     System.out.println("Could not find Related Sites link, falling back to direct navigation");
                     driver.get("https://www.demoblaze.com/index.html");
-                    sleep(3000);
+                    getWait(3000).until(ExpectedConditions.titleContains("STORE"));
                 }
             } else {
                 // Not on TestPages, navigate directly to DemoBlaze
                 System.out.println("Not on TestPages, navigating directly to DemoBlaze");
                 driver.get("https://www.demoblaze.com/index.html");
-                sleep(3000);
+                getWait(3000).until(ExpectedConditions.titleContains("STORE"));
             }
             
         } catch (Exception e) {
             System.out.println("Error during navigation to DemoBlaze: " + e.getMessage());
-            e.printStackTrace();
-            // As a fallback, navigate directly to DemoBlaze
+            e.printStackTrace();            // As a fallback, navigate directly to DemoBlaze
             System.out.println("Falling back to direct navigation due to error");
             driver.get("https://www.demoblaze.com/index.html");
-            sleep(3000);
+            getWait(3000).until(ExpectedConditions.titleContains("STORE"));
         }
         
         return new DemoBlazePage(driver);
@@ -314,15 +315,14 @@ public class HomePage {
     /**
      * Navigate to Swag Labs through Related Sites
      * @return SwagLabsPage object for interaction with the Swag Labs site
-     */
-    public SwagLabsPage navigateToSwagLabs() {
+     */    public SwagLabsPage navigateToSwagLabs() {
         System.out.println("Navigating to Swag Labs from the TestPages homepage");
         
         try {
             // First check if already on Swag Labs site
             if (driver.getCurrentUrl().contains("saucedemo.com")) {
                 System.out.println("Already on Swag Labs site, no need to navigate");
-                sleep(1000); // Add 1 second delay
+                implicitWait(100000); // Use implicit wait instead of sleep
                 return new SwagLabsPage(driver);
             }
             
@@ -358,17 +358,17 @@ public class HomePage {
                     }
                 }
             }
-            
-            // Click on Related Sites link
+              // Click on Related Sites link
             System.out.println("Found Related Sites link, clicking it");
-            sleep(1000); // Add 1 second delay before clicking
+            implicitWait(100000); // Use implicit wait instead of sleep
             relatedSitesElement.click();
-            sleep(1000); // Add 2 second delay after clicking
+            // Wait for page to load
+            getWait(100000).until(ExpectedConditions.urlContains("Others"));
             
             // Scroll down to find Swag Labs link
             System.out.println("Scrolling down to find Swag Labs link");
             ((JavascriptExecutor) driver).executeScript("window.scrollBy(0, 500)");
-            sleep(1000); // Add 1 second delay after scrolling
+            implicitWait(100000); // Use implicit wait instead of sleep
             
             // Find and click on Swag Labs link
             WebElement swagLabsElement = null;
@@ -399,17 +399,16 @@ public class HomePage {
                     }
                 }
             }
-            
-            if (swagLabsElement == null) {
+              if (swagLabsElement == null) {
                 System.out.println("Could not find Swag Labs link, falling back to direct navigation");
                 driver.get("https://www.saucedemo.com");
-                sleep(1000); // Add 2 second delay after direct navigation
+                getWait(100000).until(ExpectedConditions.urlContains("saucedemo.com"));
             } else {
                 // Click on Swag Labs link
                 System.out.println("Found Swag Labs link, clicking it");
-                sleep(1000); // Add 1 second delay before clicking
+                implicitWait(100000); // Use implicit wait instead of sleep
                 swagLabsElement.click();
-                sleep(1000); // Add 2 second delay after clicking
+                implicitWait(100000); // Use implicit wait instead of sleep
                 
                 // Store current window handle
                 String currentHandle = driver.getWindowHandle();
@@ -422,9 +421,8 @@ public class HomePage {
                         if (!handle.equals(currentHandle)) {
                             driver.switchTo().window(handle);
                             break;
-                        }
-                    }
-                    sleep(1000); // Add 2 second delay after switching tabs
+                        }                    }
+                    implicitWait(100000); // Use implicit wait instead of sleep after switching tabs
                 }
             }
             
@@ -432,19 +430,19 @@ public class HomePage {
             if (!driver.getCurrentUrl().contains("saucedemo.com")) {
                 System.out.println("Not on Swag Labs site, navigating directly");
                 driver.get("https://www.saucedemo.com");
-                sleep(1000); // Add 2 second delay
+                implicitWait(100000); // Use implicit wait instead of sleep
             }
+              System.out.println("Successfully navigated to Swag Labs: " + driver.getCurrentUrl());
+            implicitWait(100000); // Use implicit wait instead of sleep before returning to ensure page is fully loaded
             
-            System.out.println("Successfully navigated to Swag Labs: " + driver.getCurrentUrl());
-            sleep(1000); // Add 3 second delay before returning to ensure page is fully loaded
-            
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             System.out.println("Error during navigation to Swag Labs: " + e.getMessage());
             e.printStackTrace();
             // As a fallback, navigate directly to Swag Labs
             System.out.println("Falling back to direct navigation due to error");
             driver.get("https://www.saucedemo.com");
-            sleep(1000); // Add 3 second delay after fallback navigation
+            implicitWait(100000); // Use implicit wait instead of sleep after fallback navigation
         }
         
         return new SwagLabsPage(driver);

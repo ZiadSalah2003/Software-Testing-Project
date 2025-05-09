@@ -24,14 +24,14 @@ public class ComprehensiveTest extends TestBase {
     }
     
     /**
-     * Helper method to sleep/wait for specified duration
+     * @deprecated Use implicitWait method from TestBase instead
+     * Kept for backward compatibility with existing code
      */
-    private void sleep(int milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    @Override
+    @Deprecated
+    protected void sleep(int milliseconds) {
+        // Use the implicitWait method from the parent class
+        super.implicitWait(milliseconds);
     }
     
     @Test(priority = 1)
@@ -43,22 +43,22 @@ public class ComprehensiveTest extends TestBase {
         // Test addition
         calculatorPage.calculateWithFunction("5", "7", "plus");
         System.out.println("Addition test result: " + calculatorPage.getAnswer());
-        sleep(1000);
+        sleep(100000);
         
         // Test subtraction
         calculatorPage.calculateWithFunction("10", "4", "minus");
         System.out.println("Subtraction test result: " + calculatorPage.getAnswer());
-        sleep(1000);
+        sleep(100000);
         
         // Test multiplication
         calculatorPage.calculateWithFunction("6", "7", "times");
         System.out.println("Multiplication test result: " + calculatorPage.getAnswer());
-        sleep(1000);
+        sleep(100000);
         
         // Test division
         calculatorPage.calculateWithFunction("20", "5", "divide");
         System.out.println("Division test result: " + calculatorPage.getAnswer());
-        sleep(1000);
+        sleep(100000);
         
         // Navigate back to home page
         navigateToHomePage();

@@ -115,14 +115,23 @@ public class NoteTakerPage {
     
     /**
      * Sleep helper method for waiting
-     * @param milliseconds Time to sleep in milliseconds
+     * Sets implicit wait on the driver.
+     * This replaces the previous sleep method with a more efficient implicit wait.
+     * @param milliseconds Maximum time to wait in milliseconds
      */
+    private void implicitWait(int milliseconds) {
+        // Set implicit wait with a maximum of 200ms for consistency
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(Math.min(milliseconds, 200)));
+    }
+    
+    /**
+     * @deprecated Use implicitWait method instead
+     * Kept for backward compatibility with existing code
+     * @param milliseconds Time to wait in milliseconds
+     */
+    @Deprecated
     private void sleep(int milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        implicitWait(milliseconds);
     }
 
     public void clearAllNotes() {

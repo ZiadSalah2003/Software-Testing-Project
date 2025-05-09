@@ -28,15 +28,22 @@ public class SignUpDemoBlazePage {
 
     /**
      * Helper method to sleep for the specified milliseconds
-     * All sleep durations have been optimized for faster execution
+     * Sets implicit wait on the driver.
+     * This replaces the previous sleep method with a more efficient implicit wait.
+     * @param milliseconds Maximum time to wait in milliseconds
      */
+    private void implicitWait(int milliseconds) {
+        // Set implicit wait with a maximum of 200ms for consistency with previous implementation
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(Math.min(milliseconds, 200)));
+    }
+    
+    /**
+     * @deprecated Use implicitWait method instead
+     * Kept for backward compatibility with existing code
+     */
+    @Deprecated
     private void sleep(int milliseconds) {
-        try {
-            // Use even smaller sleep times to speed up tests
-            Thread.sleep(Math.min(milliseconds, 200));  // Limit sleep time to max 200ms
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        implicitWait(milliseconds);
     }
 
     /**
