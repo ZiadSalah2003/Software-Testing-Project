@@ -3,6 +3,7 @@ package Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.JavascriptExecutor;
 import java.util.List;
 import java.util.Set;
 
@@ -26,6 +27,9 @@ public class HomePage {
     // New related sites link
     private By relatedSitesLink = By.linkText("Related Sites");
     private By productStoreLink = By.linkText("Product Store");
+
+    // New Swag Labs link
+    private By swagLabsLink = By.xpath("//a[contains(@href,'saucedemo.com')]");
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -305,5 +309,144 @@ public class HomePage {
         }
         
         return new DemoBlazePage(driver);
+    }
+
+    /**
+     * Navigate to Swag Labs through Related Sites
+     * @return SwagLabsPage object for interaction with the Swag Labs site
+     */
+    public SwagLabsPage navigateToSwagLabs() {
+        System.out.println("Navigating to Swag Labs from the TestPages homepage");
+        
+        try {
+            // First check if already on Swag Labs site
+            if (driver.getCurrentUrl().contains("saucedemo.com")) {
+                System.out.println("Already on Swag Labs site, no need to navigate");
+                sleep(1000); // Add 1 second delay
+                return new SwagLabsPage(driver);
+            }
+            
+            // Navigate to Related Sites page
+            WebElement relatedSitesElement = null;
+            try {
+                // Try first by link text
+                System.out.println("Looking for Related Sites link...");
+                relatedSitesElement = driver.findElement(relatedSitesLink);
+            } catch (Exception e) {
+                System.out.println("Could not find Related Sites by link text, trying alternate methods");
+                // Try by specific URL pattern
+                try {
+                    relatedSitesElement = driver.findElement(By.cssSelector("a[href*='app=testpages&t=Others']"));
+                } catch (Exception e2) {
+                    // Try by partial link text
+                    try {
+                        relatedSitesElement = driver.findElement(By.partialLinkText("Related"));
+                    } catch (Exception e3) {
+                        System.out.println("Could not find Related Sites link, trying last resort approach");
+                        // Last resort - try to find Related Sites in all links
+                        List<WebElement> allLinks = driver.findElements(By.tagName("a"));
+                        for (WebElement link : allLinks) {
+                            if (link.getText().contains("Related")) {
+                                relatedSitesElement = link;
+                                break;
+                            }
+                        }
+                        
+                        if (relatedSitesElement == null) {
+                            throw new RuntimeException("Could not find Related Sites link");
+                        }
+                    }
+                }
+            }
+            
+            // Click on Related Sites link
+            System.out.println("Found Related Sites link, clicking it");
+            sleep(1000); // Add 1 second delay before clicking
+            relatedSitesElement.click();
+            sleep(1000); // Add 2 second delay after clicking
+            
+            // Scroll down to find Swag Labs link
+            System.out.println("Scrolling down to find Swag Labs link");
+            ((JavascriptExecutor) driver).executeScript("window.scrollBy(0, 500)");
+            sleep(1000); // Add 1 second delay after scrolling
+            
+            // Find and click on Swag Labs link
+            WebElement swagLabsElement = null;
+            try {
+                System.out.println("Looking for Swag Labs link by xpath...");
+                swagLabsElement = driver.findElement(swagLabsLink);
+            } catch (Exception e) {
+                System.out.println("Could not find Swag Labs by xpath, trying alternate methods");
+                // Try alternative methods
+                try {
+                    swagLabsElement = driver.findElement(By.linkText("Swag Labs"));
+                } catch (Exception e2) {
+                    try {
+                        swagLabsElement = driver.findElement(By.partialLinkText("Swag"));
+                    } catch (Exception e3) {
+                        System.out.println("Could not find Swag Labs link by text, trying to find by href");
+                        // Last resort - list all links and find by URL containing saucedemo
+                        List<WebElement> allLinks = driver.findElements(By.tagName("a"));
+                        for (WebElement link : allLinks) {
+                            String href = link.getAttribute("href");
+                            String text = link.getText();
+                            System.out.println("Link found: " + text + " - " + href);
+                            if (href != null && href.contains("saucedemo.com")) {
+                                swagLabsElement = link;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            if (swagLabsElement == null) {
+                System.out.println("Could not find Swag Labs link, falling back to direct navigation");
+                driver.get("https://www.saucedemo.com");
+                sleep(1000); // Add 2 second delay after direct navigation
+            } else {
+                // Click on Swag Labs link
+                System.out.println("Found Swag Labs link, clicking it");
+                sleep(1000); // Add 1 second delay before clicking
+                swagLabsElement.click();
+                sleep(1000); // Add 2 second delay after clicking
+                
+                // Store current window handle
+                String currentHandle = driver.getWindowHandle();
+                
+                // Check if a new tab was opened
+                Set<String> handles = driver.getWindowHandles();
+                if (handles.size() > 1) {
+                    System.out.println("New tab detected, switching to it");
+                    for (String handle : handles) {
+                        if (!handle.equals(currentHandle)) {
+                            driver.switchTo().window(handle);
+                            break;
+                        }
+                    }
+                    sleep(1000); // Add 2 second delay after switching tabs
+                }
+            }
+            
+            // Verify we're on the Swag Labs page
+            if (!driver.getCurrentUrl().contains("saucedemo.com")) {
+                System.out.println("Not on Swag Labs site, navigating directly");
+                driver.get("https://www.saucedemo.com");
+                sleep(1000); // Add 2 second delay
+            }
+            
+            System.out.println("Successfully navigated to Swag Labs: " + driver.getCurrentUrl());
+            sleep(1000); // Add 3 second delay before returning to ensure page is fully loaded
+            
+        } catch (Exception e) {
+            System.out.println("Error during navigation to Swag Labs: " + e.getMessage());
+            e.printStackTrace();
+            // As a fallback, navigate directly to Swag Labs
+            System.out.println("Falling back to direct navigation due to error");
+            driver.get("https://www.saucedemo.com");
+            sleep(1000); // Add 3 second delay after fallback navigation
+        }
+        
+        return new SwagLabsPage(driver);
     }
 }
