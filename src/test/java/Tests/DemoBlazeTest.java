@@ -188,6 +188,7 @@ public class DemoBlazeTest extends TestBase {
         
         // Handle alert
         demoBlazePage.handleAlert();
+        driver.switchTo().alert().accept();
         sleep(1000);
         
         // Close modal
@@ -320,50 +321,38 @@ public class DemoBlazeTest extends TestBase {
     @Test(priority = 8)
     public void testLoginWithCompleteInfo() {
         System.out.println("=== Test Case 8: Login with complete information ===");
-        
+
         // Open login modal
         demoBlazePage.clickLogin();
         sleep(1000);
-        
+
         // Find username field and enter value
         WebElement usernameField = driver.findElement(By.id("loginusername"));
         usernameField.clear();
         usernameField.sendKeys("ziadsalah");
         sleep(1000);
-        
+
         // Find password field and enter value
         WebElement passwordField = driver.findElement(By.id("loginpassword"));
         passwordField.clear();
         passwordField.sendKeys("ziadsalah");
         sleep(1000);
-        
+
         // Click the login button
         WebElement loginButton = driver.findElement(By.xpath("//button[contains(@onclick, 'logIn()')]"));
         loginButton.click();
         sleep(1000);
-        
-        // Handle password data breach alert if it appears
-        try {
-            // Check for password breach alert
-            WebElement passwordBreachAlert = driver.findElement(
-                By.xpath("//div[contains(text(), 'Change your password') or contains(text(), 'data breach')]"));
-            if (passwordBreachAlert != null) {
-                System.out.println("Detected password breach alert, closing it");
-                WebElement closeButton = driver.findElement(
-                    By.xpath("//button[contains(@class, 'close') or contains(@class, 'btn-close')]"));
-                closeButton.click();
-                sleep(1000);
-            }
-        } catch (Exception e) {
-            System.out.println("No password breach alert detected");
-        }
-        
+
+        // Handle the alert by clicking OK
+        driver.switchTo().alert().accept();
+        sleep(1000);
+
         // Check if login was successful
         try {
             // Look for the welcome message element
             WebElement welcomeMessage = driver.findElement(By.id("nameofuser"));
             System.out.println("Login successful, welcome message: " + welcomeMessage.getText());
-            
+
             // Logout after successful login to reset state
             WebElement logoutLink = driver.findElement(By.id("logout2"));
             logoutLink.click();
@@ -371,7 +360,7 @@ public class DemoBlazeTest extends TestBase {
         } catch (Exception e) {
             System.out.println("Login might have failed, welcome message not found: " + e.getMessage());
         }
-        
+
         System.out.println("Test Case 8 completed");
     }
     /**
@@ -500,50 +489,4 @@ public class DemoBlazeTest extends TestBase {
         
         System.out.println("Test Case 10 completed");
     }
-    
-    /**
-     * Test Case 11: Complete Samsung Galaxy S6 Purchase Flow with Login
-     * 1. Login with valid credentials
-     * 2. Navigate through the entire purchase flow
-     * 3. Verify success
-     */
-    // @Test(priority = 11)
-    // public void testSamsungGalaxyS6PurchaseWithLogin() {
-    //     System.out.println("=== Test Case 11: Samsung Galaxy S6 Purchase Flow with Login ===");
-        
-    //     // First login with valid credentials
-    //     demoBlazePage.clickLogin();
-    //     sleep(1000);
-        
-    //     // Use credentials from previous test
-    //     demoBlazePage.login("ziadsalah", "ziadsalah");
-    //     sleep(1000);
-        
-    //     // Verify login was successful
-    //     boolean isLoggedIn = demoBlazePage.isLoggedIn();
-    //     if (isLoggedIn) {
-    //         System.out.println("Login successful! Welcome message: " + demoBlazePage.getWelcomeMessage());
-    //     } else {
-    //         System.out.println("Login failed! Continuing with purchase flow anyway...");
-    //     }
-        
-    //     // Use the helper method to complete the purchase flow
-    //     String name = "Ziad Salah";
-    //     String country = "Egypt";
-    //     String city = "Cairo";
-    //     String creditCard = "5555555555554444";
-    //     String month = "12";
-    //     String year = "2026";
-        
-    //     boolean purchaseSuccess = demoBlazePage.completeSamsungGalaxyS6Purchase(
-    //         name, country, city, creditCard, month, year);
-        
-    //     if (purchaseSuccess) {
-    //         System.out.println("Purchase with login successful!");
-    //     } else {
-    //         System.out.println("Purchase with login failed!");
-    //     }
-        
-    //     System.out.println("Test Case 11 completed");
-    // }
 }
