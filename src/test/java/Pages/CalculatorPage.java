@@ -6,8 +6,6 @@ import org.openqa.selenium.support.ui.Select;
 
 public class CalculatorPage {
     private WebDriver driver;
-
-    // Calculator elements
     private By number1Field = By.id("number1");
     private By number2Field = By.id("number2");
     private By calculateButton = By.id("calculate");
@@ -44,7 +42,6 @@ public class CalculatorPage {
     public void calculateSum(String num1, String num2) {
         setNumber1(num1);
         setNumber2(num2);
-        // Default to 'plus' operation
         selectFunction("plus");
         clickCalculate();
     }

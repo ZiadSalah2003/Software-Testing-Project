@@ -5,8 +5,6 @@ import org.openqa.selenium.WebDriver;
 
 public class ButtonCalculatorPage {
     private WebDriver driver;
-
-    // Button Calculator elements
     private By displayField = By.id("calculated-display");
     private By button0 = By.id("button00");
     private By button1 = By.id("button01");
@@ -58,7 +56,6 @@ public class ButtonCalculatorPage {
             case "CE": driver.findElement(buttonClear).click(); break;
             case "AC": driver.findElement(buttonallClear).click(); break;
         }
-        // Add delay after each button click
         sleep(1000);
     }
 
@@ -89,64 +86,32 @@ public class ButtonCalculatorPage {
         sleep(1000);
         return driver.findElement(displayField).getText();
     }
-    
-    /**
-     * Example method for calculating 2 + 5 = 7
-     * This is a specific example of using the calculator
-     */
     public void calculateTwoPlusFive() {
-        // Clear the display first
         clearDisplay();
         sleep(1000);
-        
-        // Click button 2
         clickButton("2");
         sleep(1000);
-        
-        // Click the plus button
         clickButton("+");
         sleep(1000);
-        
-        // Click button 5
         clickButton("5");
         sleep(1000);
-        
-        // Click equals to get the result
         clickButton("=");
         sleep(1000);
-        
-        // The result should be "7" in the display
     }
-    
-    /**
-     * Calculates 25 - 16 = 9
-     * This method implements the specific test case requested
-     */
     public void calculateTwentyFiveMinusSixteen() {
-        // Clear the display first
         clearDisplay();
         sleep(1000);
-        
-        // Enter number 25
         clickButton("2");
         sleep(500);
         clickButton("5");
         sleep(1000);
-        
-        // Click the minus button
         clickButton("-");
         sleep(1000);
-        
-        // Enter number 16
         clickButton("1");
         sleep(500);
         clickButton("6");
         sleep(1000);
-        
-        // Click equals to get the result
         clickButton("=");
         sleep(1000);
-        
-        // The result should be "9" in the display
     }
 }
