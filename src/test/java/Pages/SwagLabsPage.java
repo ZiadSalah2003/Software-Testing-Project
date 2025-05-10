@@ -308,14 +308,6 @@ public class SwagLabsPage {
         }
     }
     
-    //#endregion
-
-    //#region Price Manipulation Methods
-      /**
-     * Changes the price of an item in the cart using JavaScript
-     * 
-     * @param newPrice The new price to set for the item
-     */
     public void changeItemPriceInCart(double newPrice) {
         try {
             WebElement itemElement = driver.findElement(By.className("inventory_item_price"));
@@ -328,7 +320,6 @@ public class SwagLabsPage {
                 );
                 System.out.println("Price changed successfully");
                 
-                // Force the page to recalculate totals by triggering a subtle DOM change
                 ((JavascriptExecutor) driver).executeScript(
                     "document.querySelector('.summary_subtotal_label').style.opacity = '0.99';"
                 );
@@ -343,11 +334,8 @@ public class SwagLabsPage {
             System.out.println("Error changing item price: " + e.getMessage());
             e.printStackTrace();
         }
-    }    /**
-     * Gets the price of the item in the cart
-     * 
-     * @return The current item price as a double
-     */
+    } 
+
     public double getItemPrice() {
         try {
             WebElement itemElement = driver.findElement(By.className("inventory_item_price"));
@@ -358,11 +346,8 @@ public class SwagLabsPage {
             e.printStackTrace();
             return 0.0;
         }
-    }    /**
-     * Gets the total price including tax
-     * 
-     * @return The total price including tax as a double
-     */
+    }  
+
     public double getTotalPrice() {
         try {
             WebElement totalPriceElement = waitForElement(By.className("summary_subtotal_label"));
@@ -385,5 +370,4 @@ public class SwagLabsPage {
         }
     }
     
-    //#endregion
 }

@@ -209,12 +209,6 @@ public class SwagLabsTest extends TestBase {
         swagLabsPage.completeCheckoutFast("test", "test", "12345");
     }
     
-    //#endregion    //#region Price Tests
-    
-    /**
-     * Test Case 8: Test total price after changing item price
-     * Verifies that the total price is updated correctly after changing an item's price
-     */
     @Test(priority = 8)
     public void testTotalPriceAfterChangingItemPrice() {
         System.out.println("=== Test Case 8: Test Total Price After Changing Item Price ===");
@@ -241,33 +235,26 @@ public class SwagLabsTest extends TestBase {
         swagLabsPage.clickCheckout();
         swagLabsPage.fillCheckoutInfo("test", "test", "12345");
         swagLabsPage.clickContinue();
-          // Get the original item price before changing it
         double originalItemPrice = swagLabsPage.getItemPrice();
         System.out.println("Original item price: $" + originalItemPrice);
         
-        // Set the new price
         double newPrice = 10.0;
         System.out.println("Changing item price to: $" + newPrice);
         
-        // Change the item price using JavaScript
         swagLabsPage.changeItemPriceInCart(newPrice);
         sleep(1000);
         
-        // Get the actual modified item price to confirm it was changed
         double modifiedItemPrice = swagLabsPage.getItemPrice();
         System.out.println("Modified item price: $" + modifiedItemPrice);
         Assert.assertEquals(modifiedItemPrice, newPrice, 
                          "Item price should be changed to the new value");
         
-        // Get the actual total price (includes tax)
         double actualTotalPrice = swagLabsPage.getTotalPrice();
         System.out.println("Actual total price (with tax): $" + actualTotalPrice);
         
-        // For this test, we can verify the total is greater than the item price (due to tax)
         Assert.assertTrue(actualTotalPrice > newPrice,
                          "Total price should be greater than the item price due to tax");
         System.out.println("Test completed: Total price updated correctly after changing item price");
     }
     
-    //#endregion
 }
