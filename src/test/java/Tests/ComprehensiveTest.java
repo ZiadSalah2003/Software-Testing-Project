@@ -17,15 +17,15 @@ public class ComprehensiveTest extends TestBase {
     public void testCalculator() {
         homePage = new HomePage(driver);
         CalculatorPage calculatorPage = homePage.openCalculatorPage();
-        
+
 
         calculatorPage.calculateWithFunction("5", "7", "plus");
         sleep(1000);
-        
+
 
         calculatorPage.calculateWithFunction("10", "4", "minus");
         sleep(1000);
-        
+
 
         calculatorPage.calculateWithFunction("6", "7", "times");
         sleep(1000);
@@ -33,7 +33,7 @@ public class ComprehensiveTest extends TestBase {
         sleep(1000);
         navigateToHomePage();
     }
-    
+
     @Test(priority = 2)
     public void testButtonCalculator() {
         ButtonCalculatorPage buttonCalculatorPage = homePage.openButtonCalculatorPage();
@@ -49,14 +49,14 @@ public class ComprehensiveTest extends TestBase {
         sleep(1000);
         navigateToHomePage();
     }
-    
+
     @Test(priority = 3)
     public void testCountdown() {
         CountdownPage countdownPage = homePage.openCountdownPage();
         countdownPage.performTimerSequence();
         navigateToHomePage();
     }
-    
+
     @Test(priority = 4)
     public void testClientServerForm() {
         driver.navigate().to("https://testpages.eviltester.com/styled/validation/input-validation.html");
@@ -71,8 +71,6 @@ public class ComprehensiveTest extends TestBase {
     @Test(priority = 5)
     public void testCharValidation() {
         CharValidationPage charValidationPage = homePage.openCharValidationPage();
-        
-        // Test valid input
         String validInput = "Abc12*Z";
         charValidationPage.enterText(validInput);
         charValidationPage.clickCheckButton();
