@@ -27,7 +27,7 @@ public class ComprehensiveTest extends TestBase {
         sleep(1000);
         navigateToHomePage();
     }
-    
+
     @Test(priority = 2)
     public void testButtonCalculator() {
         ButtonCalculatorPage buttonCalculatorPage = homePage.openButtonCalculatorPage();
@@ -43,14 +43,14 @@ public class ComprehensiveTest extends TestBase {
         sleep(1000);
         navigateToHomePage();
     }
-    
+
     @Test(priority = 3)
     public void testCountdown() {
         CountdownPage countdownPage = homePage.openCountdownPage();
         countdownPage.performTimerSequence();
         navigateToHomePage();
     }
-    
+
     @Test(priority = 4)
     public void testClientServerForm() {
         driver.navigate().to("https://testpages.eviltester.com/styled/validation/input-validation.html");

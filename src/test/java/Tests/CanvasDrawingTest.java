@@ -15,6 +15,7 @@ public class CanvasDrawingTest extends TestBase {
     public void setupTests() {
         homePage = new HomePage(driver);
         canvasDrawingPage = homePage.openCanvasDrawingPage();
+        canvasDrawingPage = homePage.openCanvasDrawingPage();
         Assert.assertTrue(canvasDrawingPage.isCanvasDisplayed(), "Canvas is not displayed");
     }
 
@@ -97,6 +98,7 @@ public class CanvasDrawingTest extends TestBase {
         canvasDrawingPage.clickShowButton();
         checkAndClearCanvas();
         sleep(2000);
+
         canvasDrawingPage.setXCoordinate("290");
         canvasDrawingPage.setYCoordinate("10");
         canvasDrawingPage.setShapeSize("20");
@@ -105,6 +107,7 @@ public class CanvasDrawingTest extends TestBase {
         canvasDrawingPage.clickShowButton();
         checkAndClearCanvas();
         sleep(2000);
+
         canvasDrawingPage.setXCoordinate("10");
         canvasDrawingPage.setYCoordinate("290");
         canvasDrawingPage.setShapeSize("20");
@@ -113,6 +116,7 @@ public class CanvasDrawingTest extends TestBase {
         canvasDrawingPage.clickShowButton();
         checkAndClearCanvas();
         sleep(2000);
+
         canvasDrawingPage.setXCoordinate("290");
         canvasDrawingPage.setYCoordinate("290");
         canvasDrawingPage.setShapeSize("20");
@@ -133,9 +137,10 @@ public class CanvasDrawingTest extends TestBase {
         canvasDrawingPage.clickShowButton();
         checkAndClearCanvas();
         sleep(2000);
+
         canvasDrawingPage.setXCoordinate("150");
         canvasDrawingPage.setYCoordinate("150");
-        canvasDrawingPage.setShapeSize("200");
+        canvasDrawingPage.setShapeSize("150");
         canvasDrawingPage.selectColorByName("Red");
         canvasDrawingPage.selectShapeByName("Square");
         canvasDrawingPage.clickShowButton();
@@ -148,44 +153,44 @@ public class CanvasDrawingTest extends TestBase {
         int xPosition = 50;
         int yPosition = 100;
         String size = "30";
-        canvasDrawingPage.setXCoordinate(String.valueOf(xPosition));
-        canvasDrawingPage.setYCoordinate(String.valueOf(yPosition));
-        canvasDrawingPage.setShapeSize(size);
+        canvasDrawingPage.setXCoordinate("50");
+        canvasDrawingPage.setYCoordinate("140");
+        canvasDrawingPage.setShapeSize("30");
         canvasDrawingPage.selectColorByName("Black");
         canvasDrawingPage.selectShapeByName("Circle");
         canvasDrawingPage.clickShowButton();
         checkAndClearCanvas();
         sleep(2000);
-        xPosition += 50;
-        canvasDrawingPage.setXCoordinate(String.valueOf(xPosition));
-        canvasDrawingPage.setYCoordinate(String.valueOf(yPosition));
-        canvasDrawingPage.setShapeSize(size);
+
+        canvasDrawingPage.setXCoordinate("100");
+        canvasDrawingPage.setYCoordinate("120");
+        canvasDrawingPage.setShapeSize("30");
         canvasDrawingPage.selectColorByName("Red");
         canvasDrawingPage.selectShapeByName("Circle");
         canvasDrawingPage.clickShowButton();
         checkAndClearCanvas();
         sleep(2000);
-        xPosition += 50;
-        canvasDrawingPage.setXCoordinate(String.valueOf(xPosition));
-        canvasDrawingPage.setYCoordinate(String.valueOf(yPosition));
-        canvasDrawingPage.setShapeSize(size);
+
+        canvasDrawingPage.setXCoordinate("150");
+        canvasDrawingPage.setYCoordinate("100");
+        canvasDrawingPage.setShapeSize("100");
         canvasDrawingPage.selectColorByName("Green");
         canvasDrawingPage.selectShapeByName("Circle");
         canvasDrawingPage.clickShowButton();
         checkAndClearCanvas();
         sleep(2000);
-        xPosition += 50;
-        canvasDrawingPage.setXCoordinate(String.valueOf(xPosition));
-        canvasDrawingPage.setYCoordinate(String.valueOf(yPosition));
+
+        canvasDrawingPage.setXCoordinate("200");
+        canvasDrawingPage.setYCoordinate("150");
         canvasDrawingPage.setShapeSize(size);
         canvasDrawingPage.selectColorByName("Blue");
         canvasDrawingPage.selectShapeByName("Circle");
         canvasDrawingPage.clickShowButton();
         checkAndClearCanvas();
         sleep(2000);
-        xPosition += 50;
-        canvasDrawingPage.setXCoordinate(String.valueOf(xPosition));
-        canvasDrawingPage.setYCoordinate(String.valueOf(yPosition));
+
+        canvasDrawingPage.setXCoordinate("250");
+        canvasDrawingPage.setYCoordinate("50");
         canvasDrawingPage.setShapeSize(size);
         canvasDrawingPage.selectColorByName("Grey");
         canvasDrawingPage.selectShapeByName("Circle");

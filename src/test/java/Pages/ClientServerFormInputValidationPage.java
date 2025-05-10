@@ -31,21 +31,12 @@ public class ClientServerFormInputValidationPage {
     private void waitForElementToBeClickable(By locator, int timeoutInSeconds) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         wait.until(ExpectedConditions.elementToBeClickable(locator));
-    }
-    private void safeSetValue(By locator, String value) {
-        try {
-            WebElement element = driver.findElement(locator);
-            try {
-                element.clear();
-                sleep(200);
-                element.sendKeys(value);
-            } catch (Exception e) {
-                JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("arguments[0].value = arguments[1];", element, value);
-            }
-        } catch (Exception e) {
-            System.out.println("Failed to set value for " + locator + ": " + e.getMessage());
-        }
+    }    private void safeSetValue(By locator, String value) {
+        WebElement element = driver.findElement(locator);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].value = '';", element);
+        sleep(200);
+        element.sendKeys(value);
     }
     public void fillOutForm(String firstName, String surname, String age, String country, String notes) {
         

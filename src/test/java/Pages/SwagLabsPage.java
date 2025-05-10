@@ -73,6 +73,7 @@ public class SwagLabsPage {
         waitForElement(loginButton).click();
     }
 
+
     public void login(String username, String password) {
         enterUsername(username);
         sleep(500);
@@ -81,6 +82,7 @@ public class SwagLabsPage {
         clickLogin();
         sleep(500);
     }
+
 
     public boolean isLoginSuccessful() {
         try {
@@ -98,7 +100,9 @@ public class SwagLabsPage {
         }
     }
 
+
     public String getErrorMessage() {
+        sleep(500);
         sleep(500);
         try {
             return wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage)).getText();
@@ -107,7 +111,9 @@ public class SwagLabsPage {
         }
     }
 
+
     public boolean isErrorMessageDisplayed() {
+        sleep(500);
         sleep(500);
         try {
             return wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage)).isDisplayed();
@@ -126,6 +132,7 @@ public class SwagLabsPage {
         }
     }
 
+
     public void addTShirtRedToCart() {
         try {
             waitForElement(addToCartTShirtRed).click();
@@ -134,6 +141,7 @@ public class SwagLabsPage {
             e.printStackTrace();
         }
     }
+
 
     public void addOnesieToCart() {
         try {
@@ -150,31 +158,37 @@ public class SwagLabsPage {
             return Integer.parseInt(badgeText);
         } catch (Exception e) {
             return 0;
+            return 0;
         }
     }
+
 
     public void clickOnCart() {
         try {
             waitForElement(shoppingCartLink).click();
             sleep(500);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void removeTShirtFromCart() {
-        try {
-            waitForElement(removeTShirtButton).click();
             sleep(500);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+
+    public void removeTShirtFromCart() {
+        try {
+            waitForElement(removeTShirtButton).click();
+            sleep(500);
+            sleep(500);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void removeOnesieFromCart() {
         try {
             ((JavascriptExecutor) driver).executeScript(
-                "document.querySelector('[data-test=\"remove-sauce-labs-onesie\"]').click();"
+                    "document.querySelector('[data-test=\"remove-sauce-labs-onesie\"]').click();"
             );
         } catch (Exception e) {
             e.printStackTrace();
@@ -185,10 +199,12 @@ public class SwagLabsPage {
         try {
             waitForElement(checkoutButton).click();
             sleep(500);
+            sleep(500);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     public void clickCheckoutFast() {
         try {
@@ -198,6 +214,7 @@ public class SwagLabsPage {
             e.printStackTrace();
         }
     }
+
 
     public void fillCheckoutInfo(String firstName, String lastName, String postalCode) {
         try {
@@ -224,40 +241,50 @@ public class SwagLabsPage {
         }
     }
 
+
     public void clickContinue() {
         try {
             waitForElement(continueButton).click();
+            sleep(500);
             sleep(500);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     public void clickFinish() {
         try {
             waitForElement(finishButton).click();
             sleep(500);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public boolean isOrderCompletionDisplayed() {
-        try {
-            return wait.until(ExpectedConditions.visibilityOfElementLocated(checkoutComplete)).isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public void clickBackHome() {
-        try {
-            waitForElement(backHomeButton).click();
             sleep(500);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
+    public boolean isOrderCompletionDisplayed() {
+        try {
+            return waitForElement(checkoutComplete).isDisplayed();
+        } catch (Exception e) {
+            System.out.println("Error checking order completion page: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public void clickBackHome() {
+        try {
+            waitForElement(backHomeButton).click();
+            sleep(500);
+            sleep(500);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void completeCheckout(String firstName, String lastName, String postalCode) {
         clickCheckout();
@@ -269,6 +296,7 @@ public class SwagLabsPage {
         }
     }
 
+
     public void completeCheckoutFast(String firstName, String lastName, String postalCode) {
         removeOnesieFromCart();
         clickCheckoutFast();
@@ -279,4 +307,83 @@ public class SwagLabsPage {
             clickBackHome();
         }
     }
+    
+    //#endregion
+
+    //#region Price Manipulation Methods
+      /**
+     * Changes the price of an item in the cart using JavaScript
+     * 
+     * @param newPrice The new price to set for the item
+     */
+    public void changeItemPriceInCart(double newPrice) {
+        try {
+            WebElement itemElement = driver.findElement(By.className("inventory_item_price"));
+            String priceText = itemElement.getText().replace("$", "");
+            double currentPrice = Double.parseDouble(priceText);
+            if (currentPrice != newPrice) {
+                System.out.println("Changing item price from $" + currentPrice + " to $" + newPrice);
+                ((JavascriptExecutor) driver).executeScript(
+                        "arguments[0].innerText = '$" + newPrice + "';", itemElement
+                );
+                System.out.println("Price changed successfully");
+                
+                // Force the page to recalculate totals by triggering a subtle DOM change
+                ((JavascriptExecutor) driver).executeScript(
+                    "document.querySelector('.summary_subtotal_label').style.opacity = '0.99';"
+                );
+                sleep(500);
+                ((JavascriptExecutor) driver).executeScript(
+                    "document.querySelector('.summary_subtotal_label').style.opacity = '1';"
+                );
+            } else {
+                System.out.println("Price is already set to $" + newPrice);
+            }
+        } catch (Exception e) {
+            System.out.println("Error changing item price: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }    /**
+     * Gets the price of the item in the cart
+     * 
+     * @return The current item price as a double
+     */
+    public double getItemPrice() {
+        try {
+            WebElement itemElement = driver.findElement(By.className("inventory_item_price"));
+            String priceText = itemElement.getText().replace("$", "");
+            return Double.parseDouble(priceText);
+        } catch (Exception e) {
+            System.out.println("Error getting item price: " + e.getMessage());
+            e.printStackTrace();
+            return 0.0;
+        }
+    }    /**
+     * Gets the total price including tax
+     * 
+     * @return The total price including tax as a double
+     */
+    public double getTotalPrice() {
+        try {
+            WebElement totalPriceElement = waitForElement(By.className("summary_subtotal_label"));
+            String totalPriceText = totalPriceElement.getText().replace("Item total: $", "");
+            
+            WebElement taxElement = waitForElement(By.className("summary_tax_label"));
+            String taxText = taxElement.getText().replace("Tax: $", "");
+            
+            double subtotal = Double.parseDouble(totalPriceText);
+            double tax = Double.parseDouble(taxText);
+            
+            System.out.println("Subtotal: $" + subtotal);
+            System.out.println("Tax: $" + tax);
+            
+            return subtotal + tax;
+        } catch (Exception e) {
+            System.out.println("Error getting total price: " + e.getMessage());
+            e.printStackTrace();
+            return 0.0;
+        }
+    }
+    
+    //#endregion
 }
