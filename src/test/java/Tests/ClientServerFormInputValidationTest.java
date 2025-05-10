@@ -6,7 +6,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class ClientServerFormInputValidationTest extends TestBase {
-
     ClientServerFormInputValidationPage formPage;
 
     @BeforeMethod
@@ -25,6 +24,7 @@ public class ClientServerFormInputValidationTest extends TestBase {
         formPage.navigateBackToForm();
         sleep(2000);
     }
+
     @Test
     public void testInValidFirstSubmission() {
         formPage.fillOutForm("", "Mustafa Abd Elaty", "21", "Egypt", "This is a test note.");
@@ -35,6 +35,7 @@ public class ClientServerFormInputValidationTest extends TestBase {
         formPage.navigateBackToForm();
         sleep(2000);
     }
+
     @Test
     public void testInValidSurnameSubmission() {
         formPage.fillOutForm("Ahmed", "Mustafa", "21", "Egypt", "This is a test note.");
@@ -45,6 +46,7 @@ public class ClientServerFormInputValidationTest extends TestBase {
         formPage.navigateBackToForm();
         sleep(2000);
     }
+
     @Test
     public void testInValidAgeSubmission() {
         formPage.fillOutForm("Ahmed", "Mustafa Abd Elaty", "90", "Egypt", "This is a test note.");

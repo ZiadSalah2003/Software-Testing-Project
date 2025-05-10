@@ -20,6 +20,7 @@ public class SignUpDemoBlaze extends TestBase {
         sleep(2000);
         signUpDemoBlazePage = new SignUpDemoBlazePage(driver);
     }
+
     @Test(priority = 1)
     public void testSignUpWithUsernameOnly() {
         signUpDemoBlazePage.signUpWithUsernameOnly("ziadsalah");
@@ -29,6 +30,7 @@ public class SignUpDemoBlaze extends TestBase {
         signUpDemoBlazePage.closeSignUpModal();
         sleep(1000);
     }
+
     @Test(priority = 2)
     public void testSignUpWithPasswordOnly() {
         signUpDemoBlazePage.signUpWithPasswordOnly("ziadsalah516");
@@ -38,6 +40,7 @@ public class SignUpDemoBlaze extends TestBase {
         signUpDemoBlazePage.closeSignUpModal();
         sleep(1000);
     }
+
     @Test(priority = 3)
     public void testSignUpWithEmptyFields() {
         signUpDemoBlazePage.signUpWithEmptyFields();
@@ -47,6 +50,7 @@ public class SignUpDemoBlaze extends TestBase {
         signUpDemoBlazePage.closeSignUpModal();
         sleep(1000);
     }
+
     @Test(priority = 4)
     public void testSignUpWithCompleteInfo() {
         signUpDemoBlazePage.signUpWithCompleteInfo("ziadsalah", "ziadsalah516");

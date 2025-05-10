@@ -11,8 +11,7 @@ public class TestBase {
     public static WebDriver driver;
 
     @BeforeTest
-    public void openUrl()
-    {
+    public void openUrl() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-extensions");
@@ -28,9 +27,9 @@ public class TestBase {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         sleep(1000);
     }
+
     @AfterTest
-    public void closeUrl()
-    {
+    public void closeUrl() {
         sleep(500);
         driver.quit();
     }

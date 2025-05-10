@@ -7,7 +7,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class CanvasDrawingTest extends TestBase {
-    
     private HomePage homePage;
     private CanvasDrawingPage canvasDrawingPage;
     private int shapeCounter = 0;
@@ -15,26 +14,19 @@ public class CanvasDrawingTest extends TestBase {
     @BeforeClass
     public void setupTests() {
         homePage = new HomePage(driver);
-        System.out.println("Navigating to the Canvas Drawing page");
-        try {
-            canvasDrawingPage = homePage.openCanvasDrawingPage();
-            System.out.println("Successfully navigated to the Canvas Drawing page");
-        } catch (Exception e) {
-            System.out.println("Failed to navigate to the Canvas Drawing page: " + e.getMessage());
-            e.printStackTrace();
-        }
+        canvasDrawingPage = homePage.openCanvasDrawingPage();
         Assert.assertTrue(canvasDrawingPage.isCanvasDisplayed(), "Canvas is not displayed");
     }
+
     private void checkAndClearCanvas() {
         shapeCounter++;
-        System.out.println("Shapes drawn: " + shapeCounter);
         if (shapeCounter % 5 == 0) {
-            System.out.println("Waiting 2 seconds before clearing canvas...");
             sleep(2000);
             canvasDrawingPage.clickClearButton();
             sleep(1000);
         }
     }
+
     @Test(priority = 1)
     public void testDefaultValueCircle() {
         canvasDrawingPage.setXCoordinate("20");
@@ -46,6 +38,7 @@ public class CanvasDrawingTest extends TestBase {
         checkAndClearCanvas();
         sleep(2000);
     }
+
     @Test(priority = 2)
     public void testRedSquare() {
         canvasDrawingPage.setXCoordinate("100");
@@ -57,6 +50,7 @@ public class CanvasDrawingTest extends TestBase {
         checkAndClearCanvas();
         sleep(2000);
     }
+
     @Test(priority = 3)
     public void testBlueCircle() {
         canvasDrawingPage.setXCoordinate("150");
@@ -68,6 +62,7 @@ public class CanvasDrawingTest extends TestBase {
         checkAndClearCanvas();
         sleep(2000);
     }
+
     @Test(priority = 4)
     public void testGreenSquareMaxSize() {
         canvasDrawingPage.setXCoordinate("200");
@@ -79,6 +74,7 @@ public class CanvasDrawingTest extends TestBase {
         checkAndClearCanvas();
         sleep(2000);
     }
+
     @Test(priority = 5)
     public void testGreyCircleMinSize() {
         canvasDrawingPage.setXCoordinate("50");
@@ -90,6 +86,7 @@ public class CanvasDrawingTest extends TestBase {
         checkAndClearCanvas();
         sleep(2000);
     }
+
     @Test(priority = 6)
     public void testEdgeCoordinates() {
         canvasDrawingPage.setXCoordinate("10");
@@ -125,9 +122,9 @@ public class CanvasDrawingTest extends TestBase {
         checkAndClearCanvas();
         sleep(2000);
     }
+
     @Test(priority = 7)
     public void testSizeBoundary() {
-        System.out.println("Testing with boundary size values");
         canvasDrawingPage.setXCoordinate("100");
         canvasDrawingPage.setYCoordinate("100");
         canvasDrawingPage.setShapeSize("1");
@@ -145,6 +142,7 @@ public class CanvasDrawingTest extends TestBase {
         checkAndClearCanvas();
         sleep(2000);
     }
+
     @Test(priority = 8)
     public void testAllColors() {
         int xPosition = 50;
@@ -195,6 +193,7 @@ public class CanvasDrawingTest extends TestBase {
         checkAndClearCanvas();
         sleep(2000);
     }
+
     @Test(priority = 9)
     public void testOverlappingShapes() {
         canvasDrawingPage.setXCoordinate("150");

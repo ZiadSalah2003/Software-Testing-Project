@@ -3,11 +3,11 @@ package Tests;
 import Pages.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
+
 public class ComprehensiveTest extends TestBase {
-    
     private HomePage homePage;
+    
     private void navigateToHomePage() {
-        System.out.println("Navigating back to home page...");
         driver.navigate().to("https://testpages.eviltester.com/styled/index.html");
         sleep(2000);
         homePage = new HomePage(driver);
@@ -17,16 +17,10 @@ public class ComprehensiveTest extends TestBase {
     public void testCalculator() {
         homePage = new HomePage(driver);
         CalculatorPage calculatorPage = homePage.openCalculatorPage();
-        
-
         calculatorPage.calculateWithFunction("5", "7", "plus");
         sleep(1000);
-        
-
         calculatorPage.calculateWithFunction("10", "4", "minus");
         sleep(1000);
-        
-
         calculatorPage.calculateWithFunction("6", "7", "times");
         sleep(1000);
         calculatorPage.calculateWithFunction("20", "5", "divide");
@@ -71,8 +65,6 @@ public class ComprehensiveTest extends TestBase {
     @Test(priority = 5)
     public void testCharValidation() {
         CharValidationPage charValidationPage = homePage.openCharValidationPage();
-        
-        // Test valid input
         String validInput = "Abc12*Z";
         charValidationPage.enterText(validInput);
         charValidationPage.clickCheckButton();
@@ -190,12 +182,9 @@ public class ComprehensiveTest extends TestBase {
     public void testTriangleApplication() {
         driver.navigate().to("https://testpages.eviltester.com/styled/apps/triangle/triangle001.html");
         TheFamousTriangleApplicationPage trianglePage = new TheFamousTriangleApplicationPage(driver);
-        
-
         trianglePage.testTriangle("5", "5", "5");
         String result = trianglePage.getTriangleType();
         sleep(1000);
-
         trianglePage.testTriangle("5", "5", "3");
         result = trianglePage.getTriangleType();
         sleep(1000);

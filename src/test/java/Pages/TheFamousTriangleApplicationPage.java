@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 public class TheFamousTriangleApplicationPage {
     private WebDriver driver;
 
-    // Locators
     private By side1Field = By.id("side1");
     private By side2Field = By.id("side2");
     private By side3Field = By.id("side3");
@@ -35,10 +34,8 @@ public class TheFamousTriangleApplicationPage {
         driver.findElement(side3Field).clear();
         driver.findElement(side3Field).sendKeys(side3);
 
-        // Click the identify button
         driver.findElement(submitButton).click();
 
-        // Wait 2 seconds for result to appear
         sleep(2000);
     }
 

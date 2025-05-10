@@ -19,9 +19,9 @@ public class CartDemoBlaze extends TestBase {
         sleep(2000);
         cartDemoBlazePage = new CartDemoBlazePage(driver);
     }
+
     @Test(priority = 1)
     public void testSamsungGalaxyS6Purchase() {
-
         cartDemoBlazePage.navigateToHome();
         sleep(1000);
         cartDemoBlazePage.navigateToPhones();
@@ -48,6 +48,5 @@ public class CartDemoBlaze extends TestBase {
         String confirmationText = cartDemoBlazePage.getOrderConfirmationText();
         cartDemoBlazePage.confirmPurchase();
         sleep(1000);
-        System.out.println("Test Case 1 completed");
     }
 }

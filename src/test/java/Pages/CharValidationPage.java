@@ -33,6 +33,7 @@ public class CharValidationPage {
         boolean isValid = !message.toLowerCase().contains("invalid");
         return isValid;
     }
+    
     public void validateInput(String text) {
         enterText(text);
         clickCheckButton();

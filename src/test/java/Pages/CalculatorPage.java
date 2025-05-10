@@ -8,9 +8,9 @@ public class CalculatorPage {
     private WebDriver driver;
     private By number1Field = By.id("number1");
     private By number2Field = By.id("number2");
+    private By functionDropdown = By.id("function");
     private By calculateButton = By.id("calculate");
     private By answerField = By.id("answer");
-    private By functionDropdown = By.id("function");
 
     public CalculatorPage(WebDriver driver) {
         this.driver = driver;
@@ -45,7 +45,7 @@ public class CalculatorPage {
         selectFunction("plus");
         clickCalculate();
     }
-    
+
     public void calculateWithFunction(String num1, String num2, String function) {
         setNumber1(num1);
         setNumber2(num2);

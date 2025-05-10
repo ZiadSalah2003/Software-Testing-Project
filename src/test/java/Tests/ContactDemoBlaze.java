@@ -19,6 +19,7 @@ public class ContactDemoBlaze extends TestBase {
         sleep(2000);
         contactDemoBlazePage = new ContactDemoBlazePage(driver);
     }
+
     @Test(priority = 1)
     public void testContactWithCompleteInfo() {
         contactDemoBlazePage.submitContactWithCompleteInfo(

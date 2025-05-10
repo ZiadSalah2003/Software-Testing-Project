@@ -8,7 +8,6 @@ import java.util.List;
 public class SearchPage {
     private WebDriver driver;
 
-    // Search elements
     private By searchField = By.name("searchterm");
     private By searchButton = By.name("submitbutton");
     private By searchResults = By.className("resultlist");

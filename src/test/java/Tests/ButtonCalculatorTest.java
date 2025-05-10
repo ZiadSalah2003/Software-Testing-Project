@@ -9,14 +9,15 @@ import org.testng.annotations.Test;
 public class ButtonCalculatorTest extends TestBase {
     HomePage homePage;
     ButtonCalculatorPage buttonCalculatorPage;
+    
     @BeforeMethod
     public void setUp() {
         homePage = new HomePage(driver);
         sleep(1000);
     }
+    
     @Test
     public void testAddition() {
-        System.out.println("Starting addition test");
         buttonCalculatorPage = homePage.openButtonCalculatorPage();
         sleep(2000);
         buttonCalculatorPage.clearDisplay();
@@ -27,9 +28,9 @@ public class ButtonCalculatorTest extends TestBase {
         Assert.assertEquals(result, "42", "Button calculator addition failed");
         sleep(1000);
     }
+    
     @Test
     public void testMultiplication() {
-        System.out.println("Starting multiplication test");
         buttonCalculatorPage = homePage.openButtonCalculatorPage();
         sleep(2000);
         buttonCalculatorPage.clearDisplay();
@@ -53,6 +54,7 @@ public class ButtonCalculatorTest extends TestBase {
         Assert.assertEquals(result, "", "Clear function did not reset display to 0");
         sleep(1000);
     }
+
     @Test
     public void testTwoPlusFiveExample() {
         buttonCalculatorPage = homePage.openButtonCalculatorPage();
@@ -63,10 +65,10 @@ public class ButtonCalculatorTest extends TestBase {
         Assert.assertEquals(result, "7", "Button calculator example 2 + 5 failed");
         sleep(1000);
     }
+
     @Test
     public void testSubtraction() {
         buttonCalculatorPage = homePage.openButtonCalculatorPage();
-        System.out.println("Starting subtraction test");
         sleep(2000);
         buttonCalculatorPage.clearDisplay();
         sleep(1000);

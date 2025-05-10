@@ -5,7 +5,6 @@ import Pages.HomePage;
 import Pages.ScribblePage;
 
 public class ScribbleTest extends TestBase {
-    
     @Test
     public void testCanvasScribble() {
         HomePage homePage = new HomePage(driver);

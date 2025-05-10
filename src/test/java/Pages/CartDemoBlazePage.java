@@ -56,50 +56,27 @@ public class CartDemoBlazePage {
         sleep(500);
     }
     public void navigateToProductPage(String productName) {
-        try {
-            List<WebElement> products = driver.findElements(productTitles);
-            for (WebElement product : products) {
-                if (product.getText().toLowerCase().contains(productName.toLowerCase())) {
-                    product.click();
-                    sleep(500);
-                    return;
-                }
+        List<WebElement> products = driver.findElements(productTitles);
+        for (WebElement product : products) {
+            if (product.getText().toLowerCase().contains(productName.toLowerCase())) {
+                product.click();
+                sleep(500);
+                return;
             }
-            System.out.println("Product " + productName + " not found");
-        } catch (Exception e) {
-            System.out.println("Error navigating to product page: " + e.getMessage());
         }
     }
     public void addToCart() {
-        try {
-            wait.until(ExpectedConditions.elementToBeClickable(addToCartButton)).click();
-            sleep(500);
-            handleAlert();
-        } catch (Exception e) {
-            System.out.println("Error adding product to cart: " + e.getMessage());
-        }
+        wait.until(ExpectedConditions.elementToBeClickable(addToCartButton)).click();
+        sleep(500);
+        handleAlert();
     }
     public void navigateToCart() {
-        try {
-            wait.until(ExpectedConditions.elementToBeClickable(cartLink)).click();
-            sleep(500);
-        } catch (Exception e) {
-            System.out.println("Error navigating to cart: " + e.getMessage());
-            try {
-                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", 
-                    driver.findElement(cartLink));
-            } catch (Exception ex) {
-                System.out.println("JavaScript click also failed: " + ex.getMessage());
-            }
-        }
+        wait.until(ExpectedConditions.elementToBeClickable(cartLink)).click();
+        sleep(500);
     }
     public void clickPlaceOrder() {
-        try {
-            wait.until(ExpectedConditions.elementToBeClickable(placeOrderButton)).click();
-            sleep(500);
-        } catch (Exception e) {
-            System.out.println("Error clicking Place Order button: " + e.getMessage());
-        }
+        wait.until(ExpectedConditions.elementToBeClickable(placeOrderButton)).click();
+        sleep(500);
     }
     public void fillOrderForm(String name, String country, String city, String card, String month, String year) {
         WebElement nameElement = wait.until(ExpectedConditions.elementToBeClickable(orderNameField));
@@ -140,12 +117,9 @@ public class CartDemoBlazePage {
         }
     }
     public void confirmPurchase() {
-        try {
-            wait.until(ExpectedConditions.elementToBeClickable(orderConfirmButton)).click();
-            sleep(500);
-        } catch (Exception e) {
-            System.out.println("Error confirming purchase: " + e.getMessage());
-        }
+        wait.until(ExpectedConditions.elementToBeClickable(orderConfirmButton)).click();
+        sleep(500);
+
     }
     public String handleAlert() {
         try {
@@ -157,7 +131,6 @@ public class CartDemoBlazePage {
         } catch (TimeoutException e) {
             return "No alert present";
         } catch (Exception e) {
-            System.out.println("Error handling alert: " + e.getMessage());
             return "Alert handling error: " + e.getMessage();
         }
     }
