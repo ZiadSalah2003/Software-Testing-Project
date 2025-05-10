@@ -306,7 +306,7 @@ public class DemoBlazePage {
         // JavaScript approach only - it's fastest
         try {
             ((JavascriptExecutor) driver).executeScript(
-                "$('#logInModal').modal('show');" +
+                    "$('#logInModal').modal('show');" +
                 "document.getElementById('loginusername').value = '';" +
                 "document.getElementById('loginpassword').value = '';"
             );

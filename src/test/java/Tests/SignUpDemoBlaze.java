@@ -33,7 +33,7 @@ public class SignUpDemoBlaze extends TestBase {
     }
     @Test(priority = 2)
     public void testSignUpWithPasswordOnly() {
-        signUpDemoBlazePage.signUpWithPasswordOnly("ziadsalah");
+        signUpDemoBlazePage.signUpWithPasswordOnly("ziadsalah516");
         sleep(1000);
         String alertText = signUpDemoBlazePage.handleAlert();
         sleep(1000);
@@ -51,7 +51,7 @@ public class SignUpDemoBlaze extends TestBase {
     }
     @Test(priority = 4)
     public void testSignUpWithCompleteInfo() {
-        signUpDemoBlazePage.signUpWithCompleteInfo("ziadsalah", "ziadsalah");
+        signUpDemoBlazePage.signUpWithCompleteInfo("ziadsalah", "ziadsalah516");
         sleep(1000);
         String alertText = signUpDemoBlazePage.handleAlert();
         sleep(1000);

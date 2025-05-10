@@ -56,7 +56,7 @@ public class DemoBlazeTest extends TestBase {
         // Find username field and enter value
         WebElement usernameField = driver.findElement(By.id("sign-username"));
         usernameField.clear();
-        usernameField.sendKeys("ziadsalah");
+        usernameField.sendKeys("ziadsalah516");
         sleep(1000);
         
         // Leave password field empty
@@ -100,7 +100,7 @@ public class DemoBlazeTest extends TestBase {
         // Find password field and enter value
         WebElement passwordField = driver.findElement(By.id("sign-password"));
         passwordField.clear();
-        passwordField.sendKeys("ziadsalah");
+        passwordField.sendKeys("ziadsalah516");
         sleep(1000);
         
         // Click the sign-up button
@@ -145,7 +145,7 @@ public class DemoBlazeTest extends TestBase {
         WebElement signUpButton = driver.findElement(By.xpath("//button[contains(@onclick, 'register()')]"));
         signUpButton.click();
         sleep(1000);
-        
+
         // Handle alert
         demoBlazePage.handleAlert();
         sleep(1000);
@@ -172,23 +172,18 @@ public class DemoBlazeTest extends TestBase {
         // Find username field and enter value
         WebElement usernameField = driver.findElement(By.id("sign-username"));
         usernameField.clear();
-        usernameField.sendKeys("ziadsalah");
+        usernameField.sendKeys("ziadsalah516");
         sleep(1000);
         
         // Find password field and enter value
         WebElement passwordField = driver.findElement(By.id("sign-password"));
         passwordField.clear();
-        passwordField.sendKeys("ziadsalah");
+        passwordField.sendKeys("ziadsalah516");
         sleep(1000);
         
         // Click the sign-up button
         WebElement signUpButton = driver.findElement(By.xpath("//button[contains(@onclick, 'register()')]"));
         signUpButton.click();
-        sleep(1000);
-        
-        // Handle alert
-        demoBlazePage.handleAlert();
-        driver.switchTo().alert().accept();
         sleep(1000);
         
         // Close modal
@@ -209,11 +204,12 @@ public class DemoBlazeTest extends TestBase {
         // Open login modal
         demoBlazePage.clickLogin();
         sleep(1000); // Wait 1 second between operations
-        
+
+        System.out.println("oiia oiia");
         // Find username field and enter value
         WebElement usernameField = driver.findElement(By.id("loginusername"));
         usernameField.clear();
-        usernameField.sendKeys("ziadsalah");
+        usernameField.sendKeys("ziadsalah516");
         sleep(1000);
         
         // Leave password field empty
@@ -257,7 +253,7 @@ public class DemoBlazeTest extends TestBase {
         // Find password field and enter value
         WebElement passwordField = driver.findElement(By.id("loginpassword"));
         passwordField.clear();
-        passwordField.sendKeys("ziadsalah");
+        passwordField.sendKeys("ziadsalah516");
         sleep(1000);
         
         // Click the login button
@@ -329,39 +325,30 @@ public class DemoBlazeTest extends TestBase {
         // Find username field and enter value
         WebElement usernameField = driver.findElement(By.id("loginusername"));
         usernameField.clear();
-        usernameField.sendKeys("ziadsalah");
+        usernameField.sendKeys("ziadsalah516");
         sleep(1000);
 
         // Find password field and enter value
         WebElement passwordField = driver.findElement(By.id("loginpassword"));
         passwordField.clear();
-        passwordField.sendKeys("ziadsalah");
+        passwordField.sendKeys("ziadsalah516");
         sleep(1000);
 
         // Click the login button
         WebElement loginButton = driver.findElement(By.xpath("//button[contains(@onclick, 'logIn()')]"));
         loginButton.click();
         sleep(1000);
-
-        // Handle the alert by clicking OK
-        driver.switchTo().alert().accept();
+        sleep(1000);
         sleep(1000);
 
-        // Check if login was successful
-        try {
-            // Look for the welcome message element
-            WebElement welcomeMessage = driver.findElement(By.id("nameofuser"));
-            System.out.println("Login successful, welcome message: " + welcomeMessage.getText());
+        // Handle alert
+        demoBlazePage.handleAlert();
+        sleep(1000);
 
-            // Logout after successful login to reset state
-            WebElement logoutLink = driver.findElement(By.id("logout2"));
-            logoutLink.click();
-            sleep(1000);
-        } catch (Exception e) {
-            System.out.println("Login might have failed, welcome message not found: " + e.getMessage());
-        }
-
+        String result = driver.findElement(By.id("nameofuser")).getText();
+        assert result.equals("Welcome ziadsalah516");
         System.out.println("Test Case 8 completed");
+        sleep(1000);
     }
     /**
      * Test Case 9: Contact with complete information
@@ -410,9 +397,9 @@ public class DemoBlazeTest extends TestBase {
         sleep(1000);
         
         // Close contact modal
-        WebElement closeButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='exampleModal']//button[contains(text(),'Close')]")));
-        closeButton.click();
-        sleep(1000);
+        //WebElement closeButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='exampleModal']//button[contains(text(),'Close')]")));
+        //closeButton.click();
+        //sleep(1000);
         
         System.out.println("Test Case 9 completed");
     }

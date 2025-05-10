@@ -45,37 +45,36 @@ public class HomePage {
     }
 
     public ClientServerFormInputValidationPage openClientServerFormPage() {
-        driver.findElement(clientServerFormLink).click();
-        sleep(200); // Reduced from 1000ms
-        return new ClientServerFormInputValidationPage(driver);
+        if (driver.getCurrentUrl().contains("HTML Form Example")) {
+            return new ClientServerFormInputValidationPage(driver);
+        }
+        else {
+            driver.findElement(clientServerFormLink).click();
+            sleep(200); // Reduced from 1000ms
+            return new ClientServerFormInputValidationPage(driver);
+        }
     }
 
     public CalculatorPage openCalculatorPage() {
-        driver.findElement(calculatorLink).click();
-        sleep(200); // Reduced from 1000ms
-        return new CalculatorPage(driver);
+        // Check if already on Button Calculator page by URL
+        if (driver.getCurrentUrl().contains("calculator")) {
+            return new CalculatorPage(driver);
+        }
+        else {
+            driver.findElement(calculatorLink).click();
+            sleep(200); // Reduced from 1000ms
+            return new CalculatorPage(driver);
+        }
     }
 
     public ButtonCalculatorPage openButtonCalculatorPage() {
         // Print available links on page for debugging
-        System.out.println("Looking for Button Calculator link...");
-        try {
-            driver.findElement(buttonCalculatorLink).click();
-            sleep(200); // Reduced from 1000ms
+        if (driver.getCurrentUrl().contains("calculator.html")) {
             return new ButtonCalculatorPage(driver);
-        } catch (Exception e) {
-            // Try alternative selectors
-            System.out.println("Failed with first selector, trying alternatives...");
-            try {
-                driver.findElement(By.partialLinkText("JS")).click();
-            } catch (Exception e2) {
-                try {
-                    driver.findElement(By.xpath("//a[contains(text(), 'Calculator') and contains(text(), 'JS')]")).click();
-                } catch (Exception e3) {
-                    System.out.println("All attempts to find calculator link failed");
-                    e3.printStackTrace();
-                }
-            }
+        }
+        else {
+            System.out.println("Looking for Button Calculator link...");
+            driver.findElement(buttonCalculatorLink).click();
             sleep(200); // Reduced from 1000ms
             return new ButtonCalculatorPage(driver);
         }
@@ -83,58 +82,78 @@ public class HomePage {
 
     public CountdownPage openCountdownPage() {
         // Try the ID selector first, then fallback to link text if needed
-        try {
-            driver.findElement(countdownLinkById).click();
-        } catch (Exception e) {
-            System.out.println("Could not find countdown link by ID, trying link text");
-            driver.findElement(countdownLink).click();
+        if (driver.getCurrentUrl().contains("JavaScript Countdown Test Page")) {
+            return new CountdownPage(driver);
         }
-        sleep(200); // Reduced from 1000ms
-        return new CountdownPage(driver);
+        else {
+            try {
+                driver.findElement(countdownLinkById).click();
+            } catch (Exception e) {
+                System.out.println("Could not find countdown link by ID, trying link text");
+                driver.findElement(countdownLink).click();
+            }
+            sleep(200); // Reduced from 1000ms
+            return new CountdownPage(driver);
+        }
     }
 
     public SearchPage openSearchPage() {
-        driver.findElement(searchLink).click();
-        sleep(200); // Reduced from 1000ms
-        return new SearchPage(driver);
+        if (driver.getCurrentUrl().contains("Search")) {
+            return new SearchPage(driver);
+        }
+        else {
+            driver.findElement(searchLink).click();
+            sleep(200); // Reduced from 1000ms
+            return new SearchPage(driver);
+        }
     }
 
     public CharValidationPage openCharValidationPage() {
-        System.out.println("Attempting to click on 7 Char Val Validation link");
-        try {
-            // Try the primary selector
-            driver.findElement(charValidationLink).click();
-        } catch (Exception e) {
-            System.out.println("Could not find link by text, trying alternative selectors");
+        if (driver.getCurrentUrl().contains("7 Char Val Validation")) {
+            return new CharValidationPage(driver);
+        }
+        else {
+            System.out.println("Attempting to click on 7 Char Val Validation link");
             try {
-                // Try finding by partial link text
-                driver.findElement(By.partialLinkText("7 Char")).click();
-            } catch (Exception e2) {
+                // Try the primary selector
+                driver.findElement(charValidationLink).click();
+            } catch (Exception e) {
+                System.out.println("Could not find link by text, trying alternative selectors");
                 try {
-                    // Try finding by href containing the URL
-                    driver.findElement(By.cssSelector("a[href*='7charval']")).click();
-                } catch (Exception e3) {
-                    System.out.println("All direct attempts failed. Listing all links on page:");
-                    // List all links on the page for debugging
-                    List<WebElement> allLinks = driver.findElements(By.tagName("a"));
-                    for (WebElement link : allLinks) {
-                        System.out.println("Link text: '" + link.getText() + "', href: '" + 
-                                          link.getAttribute("href") + "', id: '" + 
-                                          link.getAttribute("id") + "'");
+                    // Try finding by partial link text
+                    driver.findElement(By.partialLinkText("7 Char")).click();
+                } catch (Exception e2) {
+                    try {
+                        // Try finding by href containing the URL
+                        driver.findElement(By.cssSelector("a[href*='7charval']")).click();
+                    } catch (Exception e3) {
+                        System.out.println("All direct attempts failed. Listing all links on page:");
+                        // List all links on the page for debugging
+                        List<WebElement> allLinks = driver.findElements(By.tagName("a"));
+                        for (WebElement link : allLinks) {
+                            System.out.println("Link text: '" + link.getText() + "', href: '" +
+                                    link.getAttribute("href") + "', id: '" +
+                                    link.getAttribute("id") + "'");
+                        }
+                        // Last resort - try to find by ID (old approach)
+                        driver.findElement(By.id("7charval")).click();
                     }
-                    // Last resort - try to find by ID (old approach)
-                    driver.findElement(By.id("7charval")).click();
                 }
             }
+            sleep(500); // Reduced from 2000ms but kept slightly longer for this complex page
+            return new CharValidationPage(driver);
         }
-        sleep(500); // Reduced from 2000ms but kept slightly longer for this complex page
-        return new CharValidationPage(driver);
     }
 
     public NoteTakerPage openNoteTakerPage() {
-        driver.findElement(noteTakerLink).click();
-        sleep(200); // Reduced from 1000ms
-        return new NoteTakerPage(driver);
+        if (driver.getCurrentUrl().contains("Simple Note Taker")) {
+            return new NoteTakerPage(driver);
+        }
+        else {
+            driver.findElement(noteTakerLink).click();
+            sleep(200); // Reduced from 1000ms
+            return new NoteTakerPage(driver);
+        }
     }
 
     public void clickLearnMore() {
@@ -148,15 +167,25 @@ public class HomePage {
     }
 
     public ScribblePage openCanvasScribblePage() {
-        driver.findElement(canvasScribbleLink).click();
-        sleep(200); // Reduced from 1000ms
-        return new ScribblePage(driver);
+        if (driver.getCurrentUrl().contains("scribbletest")) {
+            return new ScribblePage(driver);
+        }
+        else {
+            driver.findElement(canvasScribbleLink).click();
+            sleep(200); // Reduced from 1000ms
+            return new ScribblePage(driver);
+        }
     }
     
     public CanvasDrawingPage openCanvasDrawingPage() {
-        driver.findElement(canvasDrawingLink).click();
-        sleep(200); // Reduced from 1000ms
-        return new CanvasDrawingPage(driver);
+        if (driver.getCurrentUrl().contains("canvastest")) {
+            return new CanvasDrawingPage(driver);
+        }
+        else {
+            driver.findElement(canvasDrawingLink).click();
+            sleep(200); // Reduced from 1000ms
+            return new CanvasDrawingPage(driver);
+        }
     }
     
     /**

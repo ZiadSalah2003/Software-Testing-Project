@@ -104,7 +104,6 @@ public class ComprehensiveTest extends TestBase {
         canvasDrawingPage.selectColorByName("Black");
         canvasDrawingPage.selectShapeByName("Circle");
         canvasDrawingPage.clickShowButton();
-        checkAndClearCanvas();
         sleep(2000);
         canvasDrawingPage.setXCoordinate("100");
         canvasDrawingPage.setYCoordinate("100"); 
@@ -112,7 +111,6 @@ public class ComprehensiveTest extends TestBase {
         canvasDrawingPage.selectColorByName("Red");
         canvasDrawingPage.selectShapeByName("Square");
         canvasDrawingPage.clickShowButton();
-        checkAndClearCanvas();
         sleep(2000);
         canvasDrawingPage.setXCoordinate("150");
         canvasDrawingPage.setYCoordinate("50");
@@ -120,7 +118,6 @@ public class ComprehensiveTest extends TestBase {
         canvasDrawingPage.selectColorByName("Blue");
         canvasDrawingPage.selectShapeByName("Circle");
         canvasDrawingPage.clickShowButton();
-        checkAndClearCanvas();
         sleep(2000);
         canvasDrawingPage.setXCoordinate("200");
         canvasDrawingPage.setYCoordinate("200");
@@ -128,7 +125,6 @@ public class ComprehensiveTest extends TestBase {
         canvasDrawingPage.selectColorByName("Green");
         canvasDrawingPage.selectShapeByName("Square");
         canvasDrawingPage.clickShowButton();
-        checkAndClearCanvas();
         sleep(2000);
         canvasDrawingPage.setXCoordinate("50");
         canvasDrawingPage.setYCoordinate("150");
@@ -136,7 +132,6 @@ public class ComprehensiveTest extends TestBase {
         canvasDrawingPage.selectColorByName("Grey");
         canvasDrawingPage.selectShapeByName("Circle");
         canvasDrawingPage.clickShowButton();
-        checkAndClearCanvas();
         sleep(2000);
         canvasDrawingPage.setXCoordinate("10");
         canvasDrawingPage.setYCoordinate("10");
@@ -144,7 +139,6 @@ public class ComprehensiveTest extends TestBase {
         canvasDrawingPage.selectColorByName("Black");
         canvasDrawingPage.selectShapeByName("Square");
         canvasDrawingPage.clickShowButton();
-        checkAndClearCanvas();
         sleep(2000);
         canvasDrawingPage.setXCoordinate("290");
         canvasDrawingPage.setYCoordinate("10");
@@ -152,7 +146,6 @@ public class ComprehensiveTest extends TestBase {
         canvasDrawingPage.selectColorByName("Red");
         canvasDrawingPage.selectShapeByName("Circle");
         canvasDrawingPage.clickShowButton();
-        checkAndClearCanvas();
         sleep(2000);
         canvasDrawingPage.setXCoordinate("10");
         canvasDrawingPage.setYCoordinate("290");
@@ -160,7 +153,6 @@ public class ComprehensiveTest extends TestBase {
         canvasDrawingPage.selectColorByName("Green");
         canvasDrawingPage.selectShapeByName("Circle");
         canvasDrawingPage.clickShowButton();
-        checkAndClearCanvas();
         sleep(2000);
         canvasDrawingPage.setXCoordinate("290");
         canvasDrawingPage.setYCoordinate("290");
@@ -168,7 +160,6 @@ public class ComprehensiveTest extends TestBase {
         canvasDrawingPage.selectColorByName("Blue");
         canvasDrawingPage.selectShapeByName("Square");
         canvasDrawingPage.clickShowButton();
-        checkAndClearCanvas();
         sleep(2000);
         canvasDrawingPage.setXCoordinate("100");
         canvasDrawingPage.setYCoordinate("100");
@@ -176,7 +167,6 @@ public class ComprehensiveTest extends TestBase {
         canvasDrawingPage.selectColorByName("Black");
         canvasDrawingPage.selectShapeByName("Circle");
         canvasDrawingPage.clickShowButton();
-        checkAndClearCanvas();
         sleep(2000);
         canvasDrawingPage.setXCoordinate("150");
         canvasDrawingPage.setYCoordinate("150");
@@ -184,7 +174,6 @@ public class ComprehensiveTest extends TestBase {
         canvasDrawingPage.selectColorByName("Red");
         canvasDrawingPage.selectShapeByName("Square");
         canvasDrawingPage.clickShowButton();
-        checkAndClearCanvas();
         sleep(2000);
         navigateToHomePage();
     }

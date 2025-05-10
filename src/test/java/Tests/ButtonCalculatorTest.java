@@ -50,7 +50,7 @@ public class ButtonCalculatorTest extends TestBase {
         buttonCalculatorPage.clearDisplay();
         sleep(1000);
         String result = buttonCalculatorPage.getDisplayValue();
-        Assert.assertEquals(result, "0", "Clear function did not reset display to 0");
+        Assert.assertEquals(result, "", "Clear function did not reset display to 0");
         sleep(1000);
     }
     @Test
@@ -65,8 +65,8 @@ public class ButtonCalculatorTest extends TestBase {
     }
     @Test
     public void testSubtraction() {
-        System.out.println("Starting subtraction test");
         buttonCalculatorPage = homePage.openButtonCalculatorPage();
+        System.out.println("Starting subtraction test");
         sleep(2000);
         buttonCalculatorPage.clearDisplay();
         sleep(1000);

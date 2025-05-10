@@ -84,7 +84,7 @@ public class ButtonCalculatorPage {
 
     public String getDisplayValue() {
         sleep(1000);
-        return driver.findElement(displayField).getText();
+        return driver.findElement(displayField).getAttribute("value");
     }
     public void calculateTwoPlusFive() {
         clearDisplay();
