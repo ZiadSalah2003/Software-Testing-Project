@@ -24,10 +24,8 @@ public class SignUpDemoBlaze extends TestBase {
     public void testSignUpWithUsernameOnly() {
         signUpDemoBlazePage.signUpWithUsernameOnly("ziadsalah");
         sleep(1000);
-        
         String alertText = signUpDemoBlazePage.handleAlert();
         sleep(1000);
-        
         signUpDemoBlazePage.closeSignUpModal();
         sleep(1000);
     }
